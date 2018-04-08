@@ -47,9 +47,9 @@ hr {
 }
 
 .header .title {
- // font-weight: bold;
   margin-top: 1rem;
   margin-bottom: 1rem;
+  margin-right: -2rem;
 }
 
 .header ul,
@@ -158,6 +158,17 @@ article.article h2 {
 .highlight {
 	color: #3844da;
 	font-weight: bold;
+}
+
+/* Lists styles */
+ol>li>p {
+    margin-bottom: 0;
+}
+ul>li {
+    margin-bottom: 0.3rem;	
+}
+ol>li {
+    margin-bottom: 1rem;	
 }
 
 /* About page styles */

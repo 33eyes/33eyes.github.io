@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="english">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>  Blogging with Pelican  Arina Igumenshcheva
+</title>
+  <link rel="canonical" href="/2018-1-25-Blogging-with-Pelican.html">
+
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!--  <link rel="stylesheet" href="/theme/css/font-awesome.min.css">
+-->
+  <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+  
+  <link rel="stylesheet" href="/theme/css/pygments/monokai.min.css">
+  <link rel="stylesheet" href="/theme/css/theme.css">
+
+  
+  <meta name="description" content="Static site generators are a great option for blogging. They are faster, cheaper and more secure than traditional CMS blogging platforms like Wordpress. In addition, static site generators also offer straight-forward version control of the entire site, making it easy to restore earlier versions of the site if needed. There …">
+
+
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+<div class="row">
+  <div class="col-sm-12">
+	<div class="row">
+		<div class="col-sm-5">
+			<h1 class="title"><a href="/">Arina Igumenshcheva</a></h1>
+		</div>
+		<div class="col-sm-2 text-center">
+			  <ul class="list-inline">
+				  <li class="list-inline-item"><a href="https://github.com/33eyes" target="_blank"><i class="fab fa-github-square fa-2x"></i></a></li>
+				  <li class="list-inline-item"><a href="https://www.linkedin.com/in/arina-i/" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a></li>
+		</div>
+		<div class="col-sm-5">
+			  <ul class="list-inline nav-menu-custom">
+				  <li class="list-inline-item">
+					<a href="/" class="nav-link-custom">blog</a>
+				  </li>
+				  <li class="list-inline-item">
+					<a href="/category/projects.html" class="nav-link-custom">projects</a>
+				  </li>
+				  <li class="list-inline-item">
+					<a href="/category/tutorials.html" class="nav-link-custom">tutorials</a>
+				  </li>
+				  <li class="list-inline-item">
+					<a href="/author/arina-igumenshcheva.html" class="nav-link-custom">about</a>
+				  </li>
+			  </ul>
+		
+		</div>
+	</div>
+  </div>
+</div>    </div>
+  </header>
+
+  <div class="main">
+    <div class="container">
+      <h1>  Blogging with Pelican
+</h1>
+      <hr>
+  <article class="article">
+    <header>
+      <ul class="list-inline text-muted">
+        <li class="list-inline-item" title="2018-01-25T10:20:00-05:00">
+          <i class="far fa-calendar-alt"></i>
+          Thu 25 January 2018
+        </li>
+        <li class="list-inline-item">
+          <i class="far fa-folder"></i>
+          <a href="/category/tutorials.html">Tutorials</a>
+        </li>
+          <li class="list-inline-item">
+            <i class="fas fa-hashtag"></i>
+              <a href="/tag/blogging.html">#blogging</a>,               <a href="/tag/pelican.html">#pelican</a>,               <a href="/tag/git.html">#git</a>,               <a href="/tag/windows.html">#Windows</a>,               <a href="/tag/python.html">#Python</a>          </li>
+      </ul>
+    </header>
+    <div class="content">
+      <p>Static site generators are a great option for blogging. They are faster, cheaper and more secure than traditional CMS blogging platforms like Wordpress. In addition, static site generators also offer straight-forward version control of the entire site, making it easy to restore earlier versions of the site if needed. There are lots of blog posts out there extolling the benefits of static site generators in great detail, so I will skip repeating them here, and list a few in the reference section below.</p>
+<h2>Why Pelican?</h2>
+<p>So, static site generators are good stuff. There are hundreds of static site generators out there, and developers keep coming up with new ones. Currently, the most popular one is Jekyll. It's simple, Ruby-based, very easy to publish on GitHub, and has a large and active community. Many other static site generators are pretty great as well, and which one you choose depends your preferences and goals. Some static site generators are better suited for blogs, others for documentation, some are more customizable than others, some are heavy on JavaScript, some can be hosted on GitHub or Dropbox, etc. And of course, they are written in a variety of languages, including Ruby, Go, Python and JavaScript. After briefly trying out Jekyll, I've decided to go with a different static site generator for my blog: <a href="https://blog.getpelican.com/">Pelican</a>. </p>
+<p>Here are my very subjective reasons for choosing Pelican over Jekyll:</p>
+<ul>
+<li>
+<p><strong>Pelican is Python-based</strong>, and Jekyll is Ruby-based. While I'm familiar with both languages, I use Python for data science projects, and this blog is about data science, so I thought it would be easier to stick with Python. </p>
+</li>
+<li>
+<p><strong>Pelican seems to me more customizable than Jekyll</strong>. Pelican's themes are easy to switch, because they live in a separate folder and you simply point to the theme's folder in your config file to appy it to your website. Pelican also offers plugins.</p>
+</li>
+<li>
+<p><strong>Pelican is more Windows-friendly</strong>. Local development with Jekyll on my Windows 10 machine did not work for me. Jekyll is so simple that this is not a big problem, because you can easily use GitHub for all your publishing needs with Jekyll, or you can clone your Jekyll blog repo to <a href="https://c9.io">cloud9</a> (or some other virtual linux box) and develop it locally there. Local development with Pelican on Windows did work for me, although with some adjustments. While this is not crucial, I consider it a plus. </p>
+</li>
+</ul>
+<h1>Setup</h1>
+<h2>Installation</h2>
+<p>First, make sure that you have <a href="https://git-scm.com/downloads">git</a>, <a href="https://www.anaconda.com/download/">Python</a> and <a href="https://pip.pypa.io/en/stable/installing/">pip</a> installed. If using Windows, I recommend using Git Bash for running the unix terminal commands below (it's included with the git distribution for Windows).</p>
+<h5>Install pelican and markdown</h5>
+<p>Run the following command in your terminal: </p>
+<div class="highlight"><pre><span></span>pip install pelican markdown
+</pre></div>
+
+
+<h2>Create a project for your blog</h2>
+<p>Create a directory for your new project, <code>cd</code> into it in your terminal, and run the following command:</p>
+<div class="highlight"><pre><span></span>pelican-quickstart
+</pre></div>
+
+
+<p>This command will create a skeleton of your pelican project. It will ask you some questions when you run it. You can hit <code>Enter</code> to pick the default answers where available. All you really need to enter is the website title and author. The settings this script asks for can be adjusted later in the project's config file. </p>
+<h2>Create your first blog post</h2>
+<p>You need to create some content before you can generate your site with pelican. Let's make a quick "hello world!" blog post to get started. In a text editor of your choice, enter something like this:</p>
+<div class="highlight"><pre><span></span><span class="n">Title</span><span class="o">:</span> <span class="n">Hello</span><span class="o">,</span> <span class="n">world</span><span class="o">!</span>
+<span class="n">Date</span><span class="o">:</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">25</span> <span class="mi">12</span><span class="o">:</span><span class="mi">50</span>
+<span class="n">Category</span><span class="o">:</span> <span class="n">Test</span>
+
+<span class="n">Hello</span><span class="o">,</span> <span class="n">world</span><span class="o">!</span> <span class="n">This</span> <span class="n">a</span> <span class="n">test</span> <span class="n">blog</span> <span class="n">post</span><span class="o">.</span>
+</pre></div>
+
+
+<p>Save this text file as <code>hello-world.md</code> in the <code>content</code> folder of your pelican project.  </p>
+<p>By default, the <code>content</code> folder is where all of your Markdown content files need to be so that pelican can process them when generating the static site. Chronological content (i.e. blog posts) go into the main <code>content</code> folder, and if you'd like to have non-chronological content, like an About page, you'll need to create a <code>pages</code> subfolder inside the <code>content</code> folder.</p>
+<h2>Generate your static site</h2>
+<p>From your project's folder, run the following command:</p>
+<div class="highlight"><pre><span></span>pelican content
+</pre></div>
+
+
+<p>This command processes your content inside the <code>content</code> folder and saves the static webpage versions of your content in the <code>output</code> folder of your project.</p>
+<h2>Run your site locally</h2>
+<p>There are a couple of options for how to do this in pelican, this is just one of them. </p>
+<p>From your project's folder, run the following command:</p>
+<div class="highlight"><pre><span></span>make devserver
+</pre></div>
+
+
+<p>This command starts your local development server. You can view your site on <code>localhost:8000</code> .</p>
+<p>While this command runs in the background and you can still use the same terminal window, it outputs server status messages to that window, which can get confusing if you're trying to run other commands there. So it's easier to just leave this terminal for the server, and do other work in a new terminal window.</p>
+<p>The command for stopping the development server is:</p>
+<div class="highlight"><pre><span></span>make stopserver
+</pre></div>
+
+
+<p>Since the <code>make devserver</code> command runs in the background, you can't just <code>Ctrl+C</code> out of it.</p>
+<h2>Customization</h2>
+<h5>Settings</h5>
+<p>Pelican has two settings files in the main project folder: <code>pelicanconf.py</code> and <code>publishconf.py</code>. When you run the local development server with <code>make devserver</code>, pelican uses just the <code>pelicanconf.py</code> settings file. This is the file you will use most of the time to configure your site. Many of the settings here are used by themes.</p>
+<p>When you are ready to publish your website, you can run <code>make publish</code>, and pelican will generate the static site using the settings you've specified in <code>pelicanconf.py</code> and the settings in <code>publishconf.py</code>. The <code>publishconf.py</code> settings file imports <code>pelicanconf.py</code> at the start of the file, and whatever settings you specify in <code>publishconf.py</code> after the import will overwrite the <code>pelicanconf.py</code>. One example of using that is setting the <code>SITEURL</code> prefix. You'll want <code>SITEURL = ''</code> in your <code>pelicanconf.py</code> for local development, and <code>SITEURL = 'http://yourusername.github.io'</code> in your <code>publishconf.py</code> for publishing your site to GitHub pages.</p>
+<h5>Themes</h5>
+<p>Pelican makes it very easy to change themes. All you need is to have a folder with your pelican theme(s) in your project folder, and then just point to the theme's folder in your <code>pelicanconf.py</code> file: </p>
+<div class="highlight"><pre><span></span>THEME = &quot;./pelican-themes/my-custom-theme&quot;
+</pre></div>
+
+
+<p>You can clone or download pelican themes from the <a href="https://github.com/getpelican/pelican-themes">pelican theme repository</a>, or create your own. </p>
+<h2>Hosting on GitHub Pages</h2>
+<ol>
+<li>Create an empty repo on <a href="https://github.com/">GitHub</a>, and call it <code>yourusername.github.io</code>, subbing in your GitHub username. Make sure its visibility is set to public.</li>
+<li>Use git to push the contents of your <code>output</code> folder onto the <code>master</code> branch of your GitHub repo.<br>
+There are a couple ways to do this:<ul>
+<li><code>ghp-import</code> is a great plugin if you are on a Mac or unix-based OS, but not so great if you have Windows. There is a <a href="http://docs.getpelican.com/en/stable/tips.html#publishing-to-github">Windows workaround for this (see the note)</a>, but it did not work on my machine. All <code>ghp-import</code> does is create a branch called <code>gh-pages</code> and put only the contents of your <code>output</code> folder on it. Then, every time you run it, it refreshes those contents.
+To install <code>ghp-import</code> on a Mac/unix-ish OS, run: <code>pip install ghp-import</code>. (For Windows, see if the workaround linked above works for you. If not, the alternative way below should work.)
+Once that's installed, you can run <code>ghp-import output</code> to commit the contents of your <code>outout</code> folder onto the <code>gh-pages</code> git branch.
+After that, push your <code>gh-pages</code> local branch onto your remote GitHub Pages repo <code>master</code> branch by running the following: <code>git push git@github.com:yourusername/yourusername.github.io.git gh-pages:master</code> .  </li>
+<li>Another way to do this is to just copy your <code>output</code> folder somewhere outside your pelican project folder, initialize it as its own git repository, commit everything to the local <code>master</code> branch, and push that local <code>master</code> branch to the remote GitHub Pages repo <code>master</code> branch. This does mean that you'll have to copy over your <code>output</code> folder every time you want to publish to GitHub, but it is just one <code>cp</code> command instead of the <code>ghp-import</code>, and then remember to push to GitHub from that external <code>output</code> folder. It's pretty easy to write a script to do this as well, and this approach works fine on Windows.</li>
+</ul>
+</li>
+</ol>
+<p><em>Note: GitHub might take a while to generate your website when you push it for the first time.</em></p>
+<h1>My blogging workflow</h1>
+<ol>
+<li>
+<p><strong><code>cd</code> into the pelican project folder, and start up the local development server with <code>make devserver</code> .</strong></p>
+</li>
+<li>
+<p><strong>Write some content / make some customizations</strong>  </p>
+<ul>
+<li>the blog posts should go into the <code>content</code> folder</li>
+<li>static pages should go into <code>content/pages</code> subfolder</li>
+<li>blog/theme settings can be adjusted in <code>pelicanconf.py</code> config file</li>
+<li>themes can be added or modified in <code>pelican-themes</code> folder  </li>
+</ul>
+</li>
+<li>
+<p><strong>Review the local changes</strong></p>
+<ul>
+<li>open <code>localhost:8000</code> in browser and review the site</li>
+<li>once happy with the local changes, shut down the development server with <code>make stopserver</code> .</li>
+</ul>
+</li>
+<li>
+<p><strong>Commit changes to my blog development repo</strong></p>
+<ul>
+<li>Save blog development changes to a separate repo.</li>
+</ul>
+</li>
+<li>
+<p><strong>Generate production output</strong></p>
+<ul>
+<li>run <code>make publish</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Push the new static output to my GitHub Pages repo</strong></p>
+<ul>
+<li>copy the contents of <code>output</code> folder (either to the <code>gh-pages</code> branch via <code>ghp-import</code>, or to an external <code>output</code> folder with its own repo)</li>
+<li>push the new static output to the <code>master</code> branch of the GitHub Pages repo.   </li>
+</ul>
+</li>
+</ol>
+<h1>Reference</h1>
+<h2>Static site generators</h2>
+<ul>
+<li><a href="https://davidwalsh.name/introduction-static-site-generators">A nice intro to static site generators</a></li>
+<li><a href="https://ihommani.github.io/pelican.html">Thinking about Pelican</a></li>
+<li><a href="https://blog.formkeep.com/not-sure-which-static-site-generator-to-pick/">Not Sure Which Static Site Generator to Pick?</a></li>
+</ul>
+<h2>Pelican resources</h2>
+<ul>
+<li><a href="http://docs.getpelican.com/en/stable/">Documentation</a></li>
+<li><a href="https://github.com/getpelican/pelican">Source code on GitHub</a></li>
+<li><a href="https://blog.getpelican.com/category/news.html">Development blog</a></li>
+<li><a href="http://docs.getpelican.com/en/stable/tips.html#">Documentation Tips</a>  </li>
+</ul>
+<h2>Pelican tutorials</h2>
+<ul>
+<li><a href="http://nafiulis.me/making-a-static-blog-with-pelican.html">Engineering Fantasy - Making a static blog with Pelican</a></li>
+<li><a href="http://archerimagine.com/articles/pelican/cost-effective-blogging-with-Pelican-and-Github.html">Cost effective blogging with Pelican and GitHub</a></li>
+</ul>
+    </div>
+  </article>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+<div class="row">
+  <ul class="col-sm-6 list-inline">
+    <li class="list-inline-item"><a href="/archives.html">Archives</a></li>
+    <li class="list-inline-item"><a href="/categories.html">Categories</a></li>
+      <li class="list-inline-item"><a href="/tags.html">Tags</a></li>
+  </ul>
+  <p class="col-sm-6 text-sm-right text-muted">
+    Generated by <a href="https://github.com/getpelican/pelican" target="_blank">Pelican</a>
+    / <a href="https://github.com/nairobilug/pelican-alchemy" target="_blank">&#x2728;</a>
+  </p>
+</div>    </div>
+  </footer>
+  
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>
