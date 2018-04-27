@@ -287,4 +287,4 @@ LIMIT 10;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://github.com/33eyes/wiki-clickstream-graph"&gt;GitHub repo&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://github.com/33eyes/wiki-clickstream-graph/blob/master/00_import_data_into_neo4j.ipynb"&gt;Data import jupyter notebook&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><category term="graph databases"></category><category term="neo4j"></category><category term="clickstream"></category><category term="EDA"></category><category term="network analysis"></category></entry></feed>
+&lt;/ul&gt;</content><category term="graph-databases"></category><category term="neo4j"></category><category term="Cypher"></category><category term="clickstream"></category><category term="ETL"></category><category term="network-analysis"></category><category term="Python"></category></entry></feed>
