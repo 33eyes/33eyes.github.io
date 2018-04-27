@@ -1,14 +1,293 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Arina Igumenshcheva</title><link href="http://33eyes.github.io/" rel="alternate"></link><link href="http://33eyes.github.io/feeds/all.atom.xml" rel="self"></link><id>http://33eyes.github.io/</id><updated>2018-02-15T10:20:00-05:00</updated><entry><title>Goodreads project</title><link href="http://33eyes.github.io/2018-2-15-Goodreads-project.html" rel="alternate"></link><published>2018-02-15T10:20:00-05:00</published><updated>2018-02-15T10:20:00-05:00</updated><author><name>Arina Igumenshcheva</name></author><id>tag:33eyes.github.io,2018-02-15:/2018-2-15-Goodreads-project.html</id><summary type="html">&lt;p&gt;My first week at Metis has just breezed by. While I am not new to data analytics and statistics, I am new to data science and Python. For me, this past week has been a mix of a few things old and familiar, and a lot of things new and …&lt;/p&gt;</summary><content type="html">&lt;p&gt;My first week at Metis has just breezed by. While I am not new to data analytics and statistics, I am new to data science and Python. For me, this past week has been a mix of a few things old and familiar, and a lot of things new and surprizing. We've covered lots of introductory grounds on Git and GitHub, pair programming, Pandas, complexity, Matplotlib, command line basics, Seaborn, and, of course, many more Python topics. Having barely coded 10 lines of Python code before this boot camp, I am now a big fan of Python. It seems to have the capacity to do anything, from data science to web development, and when used with Anaconda and iPython notebooks, it can even replace spreadsheet applications for business analysts.&lt;/p&gt;
-&lt;h1&gt;Highlights of the week&lt;/h1&gt;
-&lt;h2&gt;Git and GitHub&lt;/h2&gt;
-&lt;p&gt;Having used git on and off for a few years now, I am fairly comfortable with the basic git commands. But throughout the years I have only ever used one GitHub workflow, which consisted of pushing and merging a feature branch onto a single remote repository on GitHub. The preferred GitHub workflow at Metis is to have two remotes, where one is the original upstream repository, and the other is my fork of that repository. The first GitHub workflow pattern has fewer steps and is a bit easier, but the latter offers greater flexibility and is a bit safer.&lt;/p&gt;
-&lt;h2&gt;Pair programming&lt;/h2&gt;
-&lt;p&gt;Everyone whom I've asked in my cohort loves pair programming! Almost every morning over the past week, we've paired up to tackle an interesting coding puzzle, code it up and figure out its complexity.&lt;/p&gt;
-&lt;h2&gt;Pandas, Matplotlib and Seaborn&lt;/h2&gt;
-&lt;p&gt;Pandas is just amazing. It makes importing data from various formats so easy and fast, and has so many built-in features. Matplotlib is handy for plotting graphs inline in Python notebooks, and Seaborn makes beautiful graphs out of the box.&lt;/p&gt;
-&lt;h2&gt;Running iPython notebooks on a PC&lt;/h2&gt;
-&lt;p&gt;I've decided to try to use a PC throughout the boot camp. As a precaution, I've also set up an Ubuntu virtual machine, in case I hit a wall with Windows and have to switch to a *nix OS. I've read a lot of warnings against running Python on Windows, but decided that many of them are a bit too nebulous and/or outdated to take literally. Those warnings may well turn out to be right, but in this case I would rather establish that empirically than go on faith. From what I've seen so far, Anaconda for Windows, along with Anaconda Navigator, take care of many of the frequent obstacles people encounter when running Python on Windows. I might run into problems with some Python libraries that may not be very Windows-friendly, but I'll try to cross that bridge when I get there. So far, using Python on PC with Anaconda has been smooth sailings (although it does sometimes require being comfortable with Windows terminal).&lt;/p&gt;</content><category term="git"></category><category term="other"></category></entry><entry><title>Blogging with Pelican</title><link href="http://33eyes.github.io/2018-1-25-Blogging-with-Pelican.html" rel="alternate"></link><published>2018-01-25T10:20:00-05:00</published><updated>2018-01-25T10:20:00-05:00</updated><author><name>Arina Igumenshcheva</name></author><id>tag:33eyes.github.io,2018-01-25:/2018-1-25-Blogging-with-Pelican.html</id><summary type="html">&lt;p&gt;Static site generators are a great option for blogging. They are faster, cheaper and more secure than traditional CMS blogging platforms like Wordpress. In addition, static site generators also offer straight-forward version control of the entire site, making it easy to restore earlier versions of the site if needed. There …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Static site generators are a great option for blogging. They are faster, cheaper and more secure than traditional CMS blogging platforms like Wordpress. In addition, static site generators also offer straight-forward version control of the entire site, making it easy to restore earlier versions of the site if needed. There are lots of blog posts out there extolling the benefits of static site generators in great detail, so I will skip repeating them here, and list a few in the reference section below.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Arina Igumenshcheva</title><link href="http://33eyes.github.io/" rel="alternate"></link><link href="http://33eyes.github.io/feeds/all.atom.xml" rel="self"></link><id>http://33eyes.github.io/</id><updated>2018-04-16T10:20:00-04:00</updated><entry><title>Exploring Wikipedia clickstream data, part 1</title><link href="http://33eyes.github.io/2018-4-16-Wikipedia-clickstream-1.html" rel="alternate"></link><published>2018-04-16T10:20:00-04:00</published><updated>2018-04-16T10:20:00-04:00</updated><author><name>Arina Igumenshcheva</name></author><id>tag:33eyes.github.io,2018-04-16:/2018-4-16-Wikipedia-clickstream-1.html</id><summary type="html">&lt;p&gt;Whenever I want to learn about something, I google it, and sooner or later I end up on Wikipedia. And so do millions of other people, in many different languages. Wikipedia is a vast repository of knowledge organized into interlinked articles, and there are lots of ways to navigate through …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Whenever I want to learn about something, I google it, and sooner or later I end up on Wikipedia. And so do millions of other people, in many different languages. Wikipedia is a vast repository of knowledge organized into interlinked articles, and there are lots of ways to navigate through it as we learn. Whenever we browse Wikipedia, we learn and gather information, so perhaps our browsing behavior tendencies on Wikipedia can tell us something about how we learn on the internet. Do we tend to get the info that we need and move on? Do we delve into details and subtopics when we find something interesting? Do we tend to wander off into other topics? Do these behaviors vary across the different Wikipedia langauge domains? We can explore such questions by looking at the Wikipedia clickstream data.&lt;/p&gt;
+&lt;p&gt;In this project, I will explore the Wikipedia clickstream data across multiple language domains. Due to the highly interconnected nature of the data, I will use a graph database for data modeling, storage and manipulation, and network analysis for deriving insights from the data. I will be using the &lt;a href="https://neo4j.com/"&gt;neo4j&lt;/a&gt; graph database along with python.&lt;br&gt;
+The goals of this project are to explore clickstream data as a graph in general using network analysis techniques, and to see if there are any interesting patterns or differences in the way Wikipedia is used across different language domains.  &lt;/p&gt;
+&lt;h2&gt;The dataset&lt;/h2&gt;
+&lt;p&gt;In 2015, Wikipedia started releasing datasets of clickstream counts to Wikipedia articles for research purposes. The project has evolved over time, and as of April 2018 it takes the form of monthly automatic releases in 11 Wikipedia language domains: English, German, French, Spanish, Russian, Italian, Japanese, Portuguese, Polish, Chinese and Persian.  &lt;/p&gt;
+&lt;p&gt;The clickstream datasets contain counts of times someone went to a Wikipedia article from either another Wikipedia article or from some other webpage. The destination Wikipedia article here is called a &lt;strong&gt;resource&lt;/strong&gt;, and the webpage from which the user went to the resource is called a &lt;strong&gt;referer&lt;/strong&gt; (yep, &lt;a href="https://en.wikipedia.org/wiki/HTTP_referer"&gt;it's referer and not referrer&lt;/a&gt;). Referers can be another Wikipedia article from the same language domain, a Wikimedia page that is not part of that Wikipedia language domain, a search engine, or some other webpage. If the referer is a Wikipedia article from the same language domain, then the article name is given. If not, then a general referer category is given.  &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Some examples of the data records:&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;Article-to-article data record&lt;/em&gt;&lt;br&gt;
+    In the English Wikipedia, the article 'Suki Waterhouse' links to the article 'List of Divergent characters'. In March 2018, users went from the 'Suki Waterhouse' article to the 'List of Divergent characters' article 86 times. This clickstream activity between the two articles is recorded in the 2018-03 English Wikipedia clickstream data release as:  &lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;referer&lt;/th&gt;
+&lt;th&gt;resource&lt;/th&gt;
+&lt;th&gt;reference type&lt;/th&gt;
+&lt;th&gt;count&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href="https://en.wikipedia.org/wiki/Suki_Waterhouse"&gt;Suki_Waterhouse&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://en.wikipedia.org/wiki/List_of_Divergent_characters"&gt;List_of_Divergent_characters&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;link&lt;/td&gt;
+&lt;td&gt;86&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;External-source-to-article data record&lt;/em&gt;&lt;br&gt;
+    In the English Wikipedia, the article 'Bureau of Investigative Journalism' was visited 18 times during March 2018 from some other Wikimedia page that is not part of the English Wikipedia. This clickstream activity is recorded in the 2018-03 English Wikipedia clickstream data release as:  &lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;referer&lt;/th&gt;
+&lt;th&gt;resource&lt;/th&gt;
+&lt;th&gt;reference type&lt;/th&gt;
+&lt;th&gt;count&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;other-internal&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://en.wikipedia.org/wiki/Bureau_of_Investigative_Journalism"&gt;Bureau_of_Investigative_Journalism&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;external&lt;/td&gt;
+&lt;td&gt;18&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The Wikipedia clickstream data shows how users get to Wikipedia articles per language domain. It is a weighted network of articles and external sources, weighted by the number of times users went to a given Wikipedia article from either another Wikipedia article or some other webpage.&lt;/p&gt;
+&lt;p&gt;For this project I'm using the March 2018 Wikipedia clickstream data release, and all of the 11 language domains provided. I'm restricting the data subset to March 2018 for two reasons. First, the way the Wikipedia clickstream data is processed has evolved significantly over time, and the number of language domains included in the releases has changed as well. The changes in data processing are likely to affect the data analysis results, so I am using the March 2018 subset in order to avoid that. Second, the Wikipedia clickstream data is quite large, and the March 2018 subset gives me enough data for an initial exploration.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2&gt;The roadmap for this project&lt;/h2&gt;
+&lt;p&gt;The examples above show that the Wikipedia clickstream data is just a long list of article-to-article or external-webpage-to-acticle references, along with the number of times those refernces were made. Many articles refer to many other articles, which makes this data highly interconnected. We can use graph theory and network analysis techniques to analyze this data. And since the clickstream data is pretty large, we'll need to load it into a graph database to get the best network analysis performance.&lt;br&gt;
+Here's the plan:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;ETL (Export, Transform and Load the data)&lt;/li&gt;
+&lt;li&gt;Descriptive statistics and exploratory data analysis&lt;/li&gt;
+&lt;li&gt;Let's ask the data some questions!  &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;This blog post will cover the 1st step, and the next steps will be covered in subsequent posts.&lt;/p&gt;
+&lt;h1&gt;ETL&lt;/h1&gt;
+&lt;p&gt;&lt;em&gt;(a.k.a. &lt;a href="https://en.wikipedia.org/wiki/Extract,_transform,_load"&gt;Export, Transform and Load&lt;/a&gt; the data)&lt;/em&gt;&lt;/p&gt;
+&lt;h2&gt;Data download and cleaning&lt;/h2&gt;
+&lt;p&gt;We can download the March 2018 Wikipedia clickstream data from &lt;a href="https://dumps.wikimedia.org/other/clickstream/2018-03/"&gt;here&lt;/a&gt;. The English Wikipedia clickstream data file is the largest of those, and it unzips to 1.3G. The second largest is the German Wikipedia clickstream, and it unzips to 219M. The data files for the other language domains are much smaller.  &lt;/p&gt;
+&lt;p&gt;The Wikipedia clickstream datasets don't need much cleaning on their own.&lt;br&gt;
+There are just 4 columns:  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;referer webpage (freetext field)&lt;/li&gt;
+&lt;li&gt;target article (freetext field)&lt;/li&gt;
+&lt;li&gt;reference (categorical text field)&lt;/li&gt;
+&lt;li&gt;number of occurrences of the reference (numerical)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;That being said, I'm going to import this data into the neo4j graph database, which has its own data import quirks. To address those, I need to clean up the quotes in the freetext fields. Neo4j seems to use quotes as a field terminator, even if you explicitly specify a different one, so the quotes need to be escaped. This can be easily done by running the &lt;code&gt;sed 's/"/\\"/g'&lt;/code&gt; command in terminal for each of the data files. That's it for data cleaning, now we can load the data into a graph database. &lt;/p&gt;
+&lt;h2&gt;Data modelling&lt;/h2&gt;
+&lt;p&gt;Graph databases are structured differently from RDBMS like MySQL or PotgreSQL, where tables are the key concept. In a graph datbase, the key concepts are relationships (a.k.a. edges or links) and nodes (a.k.a. vertices or entities), and both of those can have various properties. Before we can load our data into a graph database, we need to decide what are our nodes and relationships in the data.  &lt;/p&gt;
+&lt;p&gt;In terms of nodes and relationships, it's quite easy to model the Wikipedia clickstream data: the nodes are the webpages and the relationships are the references. But even in this simple case, there are several variations of this model that we could consider. We have two types of webpages in our data: the Wikipedia articles, where we know the exact IRL, and the external webpgages, where we only know a broad category of the webpage, like a search engine, but not the exact webpage. These two types of webpages are very different, and we might want to have different kinds of nodes for them, rather than a single node. Similarly, we have 3 kinds of references from webpage to article in the data. The references could be article-to-article links, external or other, and we could model each one of them as a separate relationship type. There are lots of options and no right answer, it all depends on the use case.&lt;/p&gt;
+&lt;p&gt;For this project, I've decided on the following model:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;nodes:&lt;ul&gt;
+&lt;li&gt;Wikipedia articles&lt;ul&gt;
+&lt;li&gt;properties: article name, language domain&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;External sources&lt;ul&gt;
+&lt;li&gt;properties: external source type (e.g. search engine), language domain &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;relationships:&lt;ul&gt;
+&lt;li&gt;REFERRED_TO&lt;ul&gt;
+&lt;li&gt;properties: reference type (link, external, other), count of reference occurrences (users went from the referer article to the referred article N times in the data)&lt;/li&gt;
+&lt;li&gt;this is a one-directional relationship&lt;/li&gt;
+&lt;li&gt;An external source can only refer to articles, and cannot be referred to. An article can refer to other articles, and can be referred to by articles or external sources.  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We will take a look at what this model looks like in neo4j once we load the data.&lt;/p&gt;
+&lt;h2&gt;Importing the data into neo4j&lt;/h2&gt;
+&lt;p&gt;Now that we've defined our data model, let's import the clickstream data into neo4j. &lt;a href="https://neo4j.com/"&gt;Neo4j&lt;/a&gt; is a graph database that is both storage- and analytics-friendly. It is currenly the most popular graph database, and it has a free community edition. Instead of SQL, neo4j uses the &lt;a href="https://en.wikipedia.org/wiki/Cypher_Query_Language"&gt;Cypher query language&lt;/a&gt; in order to interact with the database. &lt;/p&gt;
+&lt;p&gt;There are two ways to import data into neo4j: cypher &lt;code&gt;LOAD CSV&lt;/code&gt; and neo4j's batch importer tool. Neo4j has a nice &lt;a href="https://neo4j.com/developer/guide-import-csv/"&gt;guide&lt;/a&gt; that covers both of them. For this project, I'll import the data using cypher &lt;code&gt;LOAD CSV&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;LOAD CSV&lt;/code&gt; cypher query can be run in either the cypher-shell or from python using the py2neo driver. In both cases, we're running cypher queries against the neo4j database.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Overview of import steps:&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;Create indexes for any matches or merges that will happen during &lt;code&gt;LOAD CSV&lt;/code&gt;&lt;/em&gt;&lt;br&gt;
+    Indexes make finding nodes faster. Since Wikipedia clickstream data rows are webpage-to-article and article-to-acticle references with lots of articles repeating, when we use &lt;code&gt;LOAD CSV&lt;/code&gt; to load this data into the neo4j database, we will use the &lt;code&gt;MERGE&lt;/code&gt; statement, which checks if a node already exists before creating it. This means that the &lt;code&gt;LOAD CSV&lt;/code&gt; query will search the database for each node to be created. Indexing the nodes beforehand makes this process much faster.&lt;br&gt;
+    &lt;br&gt;
+    Neo4j automatically manages indices and updates them whenever the graph database has changed. This means that we can set indices before loading the data, and benefit from them at load time. For more info about neo4j indices, see &lt;a href="https://neo4j.com/docs/developer-manual/current/cypher/schema/index/"&gt;neo4j's index documentation&lt;/a&gt;.&lt;br&gt;
+    &lt;br&gt;&lt;/p&gt;
+&lt;p&gt;Cypher query example for setting an index on Article nodes, which are unique by article title and language domain:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;CREATE INDEX ON :Article(title, language_code);
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;To see all indices set on a graph, run the following cypher statement:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;CALL db.indexes;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;Load nodes&lt;/em&gt;&lt;br&gt;
+    While it is possible to load both nodes and relationships in a single &lt;code&gt;LOAD CSV&lt;/code&gt; query, it is often faster to load nodes and relationships in separate queries. To keep the cypher queries simple and easy to read, I'll also load the two types of nodes separately.&lt;br&gt;
+    &lt;br&gt;&lt;/p&gt;
+&lt;p&gt;Cypher query example for loading Article nodes (from internal references only, for now), for English language domain:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;USING PERIODIC COMMIT
+LOAD CSV FROM {myfilepath} AS row
+FIELDTERMINATOR &amp;#39;\t&amp;#39;
+WITH row
+WHERE row[2] &amp;lt;&amp;gt; &amp;#39;external&amp;#39;
+MERGE (n1:Article {title: row[0], language_code: &amp;#39;EN&amp;#39; })
+    ON CREATE SET
+        n1.language = &amp;#39;English&amp;#39; 
+MERGE (n2:Article {title: row[1], language_code: &amp;#39;EN&amp;#39; })
+    ON CREATE SET
+        n2.language = &amp;#39;English&amp;#39;
+;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Cypher query example for loading ExternalSource and Article nodes (from external references), for English language domain:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;USING PERIODIC COMMIT
+LOAD CSV FROM {myfilepath} AS row
+FIELDTERMINATOR &amp;#39;\t&amp;#39;
+WITH row
+WHERE row[2] = &amp;#39;external&amp;#39;
+MERGE (n1:ExternalSource {source_type: row[0], language_code: &amp;#39;EN&amp;#39; })
+    ON CREATE SET
+        n1.language = &amp;#39;English&amp;#39;,
+        n1.description = CASE 
+            WHEN row[0] = &amp;#39;other-internal&amp;#39; THEN &amp;#39;a page from any other Wikimedia project (not Wikipedia)&amp;#39;
+            WHEN row[0] = &amp;#39;other-search&amp;#39; THEN &amp;#39;an external search engine&amp;#39;
+            WHEN row[0] = &amp;#39;other-external&amp;#39; THEN &amp;#39;any other external site (not search engine)&amp;#39;
+            WHEN row[0] = &amp;#39;other-empty&amp;#39; THEN &amp;#39;an empty referer&amp;#39;
+            WHEN row[0] = &amp;#39;other-other&amp;#39; THEN &amp;#39;anything else (catch-all)&amp;#39;
+            ELSE &amp;#39;&amp;#39; END
+
+MERGE (n2:Article {title: row[1], language_code: &amp;#39;EN&amp;#39; })
+    ON CREATE SET
+        n2.language = &amp;#39;English&amp;#39;
+;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;Load relationships&lt;/em&gt;&lt;br&gt;
+    When loading relationships, we simply find the two nodes involved in the relationship in the graph database, and create a relationship record between them.&lt;br&gt;
+    &lt;br&gt;&lt;/p&gt;
+&lt;p&gt;Cypher query example for loading Article-to-Article references, for English language domain:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;USING PERIODIC COMMIT
+LOAD CSV FROM {myfilepath} AS row
+FIELDTERMINATOR &amp;#39;\t&amp;#39;
+WITH row
+WHERE row[2] &amp;lt;&amp;gt; &amp;#39;external&amp;#39;
+MATCH (n1:Article {title: row[0], language_code: &amp;#39;EN&amp;#39; })
+MATCH (n2:Article {title: row[1], language_code: &amp;#39;EN&amp;#39; })
+MERGE (n1)-[r:REFERRED_TO]-&amp;gt;(n2)
+    ON CREATE SET
+        r.type = row[2],
+        r.count = row[3]
+;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Cypher query example for loading ExternalSource-to-Article references, for English language domain:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;USING PERIODIC COMMIT
+LOAD CSV FROM {myfilepath} AS row
+FIELDTERMINATOR &amp;#39;\t&amp;#39;
+WITH row
+WHERE row[2] = &amp;#39;external&amp;#39;
+MATCH (n1:ExternalSource {source_type: row[0], language_code: &amp;#39;EN&amp;#39; })
+MATCH (n2:Article {title: row[1], language_code: &amp;#39;EN&amp;#39; })
+MERGE (n1)-[r:REFERRED_TO]-&amp;gt;(n2)
+    ON CREATE SET
+        r.type = row[2],
+        r.count = row[3]
+;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;When developing &lt;code&gt;LOAD CSV&lt;/code&gt; queries, it is helpful to test them out to see how the data is being processed before writing the data to the graph. This can be done by replacing the &lt;code&gt;MERGE&lt;/code&gt; statement with a &lt;code&gt;RETURN&lt;/code&gt; statement and adding a &lt;code&gt;LIMIT&lt;/code&gt; clause. The &lt;code&gt;RETURN&lt;/code&gt; statement will return the result of the query without writing it to the database, and the &lt;code&gt;LIMIT&lt;/code&gt; clause will limit the returned output to a small number of items for testing.&lt;br&gt;
+&lt;br&gt;
+Here are some examples:&lt;br&gt;
+&lt;br&gt;
+This query returns 10 data rows as cypher sees them:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;LOAD CSV FROM {myfilepath} AS row
+FIELDTERMINATOR &amp;#39;\t&amp;#39;
+RETURN row
+LIMIT 10;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This query returns the first field and a newly created description field from 10 data rows:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;LOAD CSV FROM {myfilepath} AS row
+FIELDTERMINATOR &amp;#39;\t&amp;#39;
+WITH row
+WHERE row[2] = &amp;#39;external&amp;#39;
+RETURN row[0] as n1_source_type,
+        CASE 
+            WHEN row[0] = &amp;#39;other-internal&amp;#39; THEN &amp;#39;a page from any other Wikimedia project (not Wikipedia)&amp;#39;
+            WHEN row[0] = &amp;#39;other-search&amp;#39; THEN &amp;#39;an external search engine&amp;#39;
+            WHEN row[0] = &amp;#39;other-external&amp;#39; THEN &amp;#39;any other external site (not search engine)&amp;#39;
+            WHEN row[0] = &amp;#39;other-empty&amp;#39; THEN &amp;#39;an empty referer&amp;#39;
+            WHEN row[0] = &amp;#39;other-other&amp;#39; THEN &amp;#39;anything else (catch-all)&amp;#39;
+            ELSE &amp;#39;&amp;#39; 
+        END as n1_description
+LIMIT 10;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;br&gt;    &lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;a href="https://github.com/33eyes/wiki-clickstream-graph/blob/master/00_import_data_into_neo4j.ipynb"&gt;Here's my jupyter notebook&lt;/a&gt; with the full import code for March 2018 Wikipedia clickstream data across all language domains using py2neo.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Now that we have loaded the data into neo4j, we can check that our database schema matches our graph data model. The easiest way to explore the data that's been loaded into neo4j is through the &lt;a href="https://neo4j.com/developer/guide-neo4j-browser/"&gt;neo4j browser&lt;/a&gt;.  &lt;/p&gt;
+&lt;p&gt;To view the database schema, run &lt;code&gt;CALL db.schema()&lt;/code&gt; in the neo4j browser.&lt;br&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;div class="centered" markdown="1"&gt;&lt;/p&gt;
+&lt;h5&gt;&lt;strong&gt;Wikipedia clickstream db schema&lt;/strong&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;/div&gt;
+&lt;div class="centered" markdown="1"&gt;
+&lt;img alt="Wikipedia clickstream db schema" src="http://33eyes.github.io/images/graph_db_schema.png"&gt;
+&lt;/div&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;To view a sample of the data in the graph, we can run &lt;code&gt;MATCH p=()-[r:REFERRED_TO]-&amp;gt;(n:Article {language_code:'EN'}) RETURN p LIMIT 25&lt;/code&gt; in the neo4j browser:&lt;br&gt;
+&lt;div class="centered scaled" markdown="1"&gt;
+&lt;img alt="neo4j query output" src="http://33eyes.github.io/images/english_wiki_25_rels_graph.png"&gt;
+&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;From this sample subgraph, we can see that the clickstream data is highly interconnected. We can inspect closer a handful of nodes in the neo4j browser on a case by case basis, but to get a sense of what's going on in this graph as a whole, we need to use network analysis techniques.&lt;/p&gt;
+&lt;h1&gt;Next steps&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;Descriptive statistics and EDA&lt;/li&gt;
+&lt;li&gt;Hypotheses testing&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;Reference&lt;/h1&gt;
+&lt;h2&gt;Wikipedia clickstream data&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Data source/download: &lt;a href="https://dumps.wikimedia.org/other/clickstream/"&gt;Wikipeadia clickstream data dumps&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Data description: &lt;a href="https://meta.wikimedia.org/wiki/Research:Wikipedia_clickstream"&gt;Research:Wikipedia clickstream&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;The data is released and maintained by the Wikimedia Foundation's &lt;a href="https://wikitech.wikimedia.org/wiki/Analytics"&gt;Analytics Engineering team&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Neo4j graph database&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://neo4j.com/developer/graph-database/"&gt;What is a graph database?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://neo4j.com/download/"&gt;Download&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://neo4j.com/developer/guide-neo4j-browser/"&gt;Intro to neo4j's browser&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://neo4j.com/docs/"&gt;Documentation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://nicolewhite.github.io/neo4j-jupyter/hello-world.html"&gt;Nicole White's Hello-World with jupyter and py2neo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://neo4j.com/docs/developer-manual/current/cypher/"&gt;Cypher documentation&lt;/a&gt;  &lt;/li&gt;
+&lt;li&gt;&lt;a href="https://neo4j.com/developer/guide-data-modeling/"&gt;Guide to graph data modeling&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;This project&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/33eyes/wiki-clickstream-graph"&gt;GitHub repo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/33eyes/wiki-clickstream-graph/blob/master/00_import_data_into_neo4j.ipynb"&gt;Data import jupyter notebook&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><category term="graph databases"></category><category term="neo4j"></category><category term="clickstream"></category><category term="EDA"></category><category term="network analysis"></category></entry><entry><title>Blogging with Pelican</title><link href="http://33eyes.github.io/2018-1-25-Blogging-with-Pelican.html" rel="alternate"></link><published>2018-01-25T10:20:00-05:00</published><updated>2018-01-25T10:20:00-05:00</updated><author><name>Arina Igumenshcheva</name></author><id>tag:33eyes.github.io,2018-01-25:/2018-1-25-Blogging-with-Pelican.html</id><summary type="html">&lt;p&gt;Static site generators are a great option for blogging. They are faster, cheaper and more secure than traditional CMS blogging platforms like Wordpress. In addition, static site generators also offer straight-forward version control of the entire site, making it easy to restore earlier versions of the site if needed. There …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Static site generators are a great option for blogging. They are faster, cheaper and more secure than traditional CMS blogging platforms like Wordpress. In addition, static site generators also offer straight-forward version control of the entire site, making it easy to restore earlier versions of the site if needed. There are lots of blog posts out there extolling the benefits of static site generators in great detail, so I will skip repeating them here, and list a few in the reference section below.&lt;/p&gt;
 &lt;h2&gt;Why Pelican?&lt;/h2&gt;
 &lt;p&gt;So, static site generators are good stuff. There are hundreds of static site generators out there, and developers keep coming up with new ones. Currently, the most popular one is Jekyll. It's simple, Ruby-based, very easy to publish on GitHub, and has a large and active community. Many other static site generators are pretty great as well, and which one you choose depends your preferences and goals. Some static site generators are better suited for blogs, others for documentation, some are more customizable than others, some are heavy on JavaScript, some can be hosted on GitHub or Dropbox, etc. And of course, they are written in a variety of languages, including Ruby, Go, Python and JavaScript. After briefly trying out Jekyll, I've decided to go with a different static site generator for my blog: &lt;a href="https://blog.getpelican.com/"&gt;Pelican&lt;/a&gt;. &lt;/p&gt;
 &lt;p&gt;Here are my very subjective reasons for choosing Pelican over Jekyll:&lt;/p&gt;

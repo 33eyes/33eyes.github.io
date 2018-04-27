@@ -42,6 +42,10 @@ hr {
   border-bottom: 1px solid rgba(0,0,0,.1);
 }
 
+.header .col-sm-5.header-right {
+    padding-left: 0;
+}
+
 .header img {
   margin-bottom: 1rem;
 }
@@ -50,6 +54,17 @@ hr {
   margin-top: 1rem;
   margin-bottom: 1rem;
   margin-right: -2rem;
+}
+
+.header .subtitle-row {
+	margin-top: -15px;
+	margin-bottom: -5px;
+}
+
+.sticky {
+  position: fixed;
+  width: 100%;
+  background: white;
 }
 
 .header ul,
@@ -101,6 +116,31 @@ hr {
 
 .main p, .main div.content {
 	text-align: justify;
+}
+
+
+/* table styles */
+table {
+    width: 100%;
+    margin: .5em 0 2em;
+}
+thead {
+	background: #c6caf7;
+}
+th, td {
+    padding: 0 5px;
+}
+td {
+    border-left: #c6caf7 dashed 1px;
+    border-right: #c6caf7 dashed 1px;
+    border-bottom: #c6caf7 dashed 1px;
+}
+
+.centered {
+	text-align: center;
+}
+.scaled img {
+	width: 100%;
 }
 
 .footer {
@@ -175,6 +215,7 @@ ol>li {
 .table-custom {
     margin-bottom: 2rem;
     margin-top: -1rem;
+	border: none;
 }
 
 .table-custom thead {

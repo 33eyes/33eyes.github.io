@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="english">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>  Exploring Wikipedia clickstream data, part 1  Arina Igumenshcheva
+</title>
+  <link rel="canonical" href="http://33eyes.github.io/2018-4-16-Wikipedia-clickstream-1.html">
+
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!--  <link rel="stylesheet" href="http://33eyes.github.io/theme/css/font-awesome.min.css">
+-->
+  <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+  
+  <link rel="stylesheet" href="http://33eyes.github.io/theme/css/pygments/monokai.min.css">
+  <link rel="stylesheet" href="http://33eyes.github.io/theme/css/theme.css">
+
+  <link rel="alternate" type="application/atom+xml" title="Full Atom Feed"
+        href="http://33eyes.github.io/feeds/all.atom.xml">
+  <link rel="alternate" type="application/atom+xml" title="Categories Atom Feed"
+        href="http://33eyes.github.io/feeds/projects.atom.xml">  
+  <meta name="description" content="Whenever I want to learn about something, I google it, and sooner or later I end up on Wikipedia. And so do millions of other people, in many different languages. Wikipedia is a vast repository of knowledge organized into interlinked articles, and there are lots of ways to navigate through …">
+
+
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+<div class="row">
+  <div class="col-sm-12">
+	<div class="row">
+		<div class="col-sm-5">
+			<h1 class="title"><a href="http://33eyes.github.io/">Arina Igumenshcheva</a></h1>
+		</div>
+		<div class="col-sm-2 text-center">
+			  <ul class="list-inline">
+				  <li class="list-inline-item"><a href="https://github.com/33eyes" target="_blank"><i class="fab fa-github-square fa-2x"></i></a></li>
+				  <li class="list-inline-item"><a href="https://www.linkedin.com/in/arina-i/" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a></li>
+		</div>
+		<div class="col-sm-5 header-right">
+			  <ul class="list-inline nav-menu-custom">
+				  <li class="list-inline-item">
+					<a href="/" class="nav-link-custom">blog</a>
+				  </li>
+				  <li class="list-inline-item">
+					<a href="/category/projects.html" class="nav-link-custom">projects</a>
+				  </li>
+				  <li class="list-inline-item">
+					<a href="/category/tutorials.html" class="nav-link-custom">tutorials</a>
+				  </li>
+				  <li class="list-inline-item">
+					<a href="https://gist.github.com/33eyes" class="nav-link-custom">gists</a>
+				  </li>
+				  <li class="list-inline-item">
+					<a href="/author/arina-igumenshcheva.html" class="nav-link-custom">about</a>
+				  </li>
+			  </ul>
+		
+		</div>
+	</div>
+	<div class="row subtitle-row">
+		<div class="col-sm-12">
+			  <p class="text-muted">There's a 92% chance that this is a blog about data science.</p>
+		</div>
+	</div>
+  </div>
+</div>    </div>
+  </header>
+
+  <div class="main">
+    <div class="container">
+      <h1>  Exploring Wikipedia clickstream data, part 1
+</h1>
+      <hr>
+  <article class="article">
+    <header>
+      <ul class="list-inline text-muted">
+        <li class="list-inline-item" title="2018-04-16T10:20:00-04:00">
+          <i class="far fa-calendar-alt"></i>
+          Mon 16 April 2018
+        </li>
+        <li class="list-inline-item">
+          <i class="far fa-folder"></i>
+          <a href="http://33eyes.github.io/category/projects.html">Projects</a>
+        </li>
+          <li class="list-inline-item">
+            <i class="fas fa-hashtag"></i>
+              <a href="http://33eyes.github.io/tag/graph-databases.html">#graph databases</a>,               <a href="http://33eyes.github.io/tag/neo4j.html">#neo4j</a>,               <a href="http://33eyes.github.io/tag/clickstream.html">#clickstream</a>,               <a href="http://33eyes.github.io/tag/eda.html">#EDA</a>,               <a href="http://33eyes.github.io/tag/network-analysis.html">#network analysis</a>          </li>
+      </ul>
+    </header>
+    <div class="content">
+      <p>Whenever I want to learn about something, I google it, and sooner or later I end up on Wikipedia. And so do millions of other people, in many different languages. Wikipedia is a vast repository of knowledge organized into interlinked articles, and there are lots of ways to navigate through it as we learn. Whenever we browse Wikipedia, we learn and gather information, so perhaps our browsing behavior tendencies on Wikipedia can tell us something about how we learn on the internet. Do we tend to get the info that we need and move on? Do we delve into details and subtopics when we find something interesting? Do we tend to wander off into other topics? Do these behaviors vary across the different Wikipedia langauge domains? We can explore such questions by looking at the Wikipedia clickstream data.</p>
+<p>In this project, I will explore the Wikipedia clickstream data across multiple language domains. Due to the highly interconnected nature of the data, I will use a graph database for data modeling, storage and manipulation, and network analysis for deriving insights from the data. I will be using the <a href="https://neo4j.com/">neo4j</a> graph database along with python.<br>
+The goals of this project are to explore clickstream data as a graph in general using network analysis techniques, and to see if there are any interesting patterns or differences in the way Wikipedia is used across different language domains.  </p>
+<h2>The dataset</h2>
+<p>In 2015, Wikipedia started releasing datasets of clickstream counts to Wikipedia articles for research purposes. The project has evolved over time, and as of April 2018 it takes the form of monthly automatic releases in 11 Wikipedia language domains: English, German, French, Spanish, Russian, Italian, Japanese, Portuguese, Polish, Chinese and Persian.  </p>
+<p>The clickstream datasets contain counts of times someone went to a Wikipedia article from either another Wikipedia article or from some other webpage. The destination Wikipedia article here is called a <strong>resource</strong>, and the webpage from which the user went to the resource is called a <strong>referer</strong> (yep, <a href="https://en.wikipedia.org/wiki/HTTP_referer">it's referer and not referrer</a>). Referers can be another Wikipedia article from the same language domain, a Wikimedia page that is not part of that Wikipedia language domain, a search engine, or some other webpage. If the referer is a Wikipedia article from the same language domain, then the article name is given. If not, then a general referer category is given.  </p>
+<p><strong>Some examples of the data records:</strong></p>
+<ol>
+<li>
+<p><em>Article-to-article data record</em><br>
+    In the English Wikipedia, the article 'Suki Waterhouse' links to the article 'List of Divergent characters'. In March 2018, users went from the 'Suki Waterhouse' article to the 'List of Divergent characters' article 86 times. This clickstream activity between the two articles is recorded in the 2018-03 English Wikipedia clickstream data release as:  </p>
+<table>
+<thead>
+<tr>
+<th>referer</th>
+<th>resource</th>
+<th>reference type</th>
+<th>count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://en.wikipedia.org/wiki/Suki_Waterhouse">Suki_Waterhouse</a></td>
+<td><a href="https://en.wikipedia.org/wiki/List_of_Divergent_characters">List_of_Divergent_characters</a></td>
+<td>link</td>
+<td>86</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><em>External-source-to-article data record</em><br>
+    In the English Wikipedia, the article 'Bureau of Investigative Journalism' was visited 18 times during March 2018 from some other Wikimedia page that is not part of the English Wikipedia. This clickstream activity is recorded in the 2018-03 English Wikipedia clickstream data release as:  </p>
+<table>
+<thead>
+<tr>
+<th>referer</th>
+<th>resource</th>
+<th>reference type</th>
+<th>count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>other-internal</td>
+<td><a href="https://en.wikipedia.org/wiki/Bureau_of_Investigative_Journalism">Bureau_of_Investigative_Journalism</a></td>
+<td>external</td>
+<td>18</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+<p>The Wikipedia clickstream data shows how users get to Wikipedia articles per language domain. It is a weighted network of articles and external sources, weighted by the number of times users went to a given Wikipedia article from either another Wikipedia article or some other webpage.</p>
+<p>For this project I'm using the March 2018 Wikipedia clickstream data release, and all of the 11 language domains provided. I'm restricting the data subset to March 2018 for two reasons. First, the way the Wikipedia clickstream data is processed has evolved significantly over time, and the number of language domains included in the releases has changed as well. The changes in data processing are likely to affect the data analysis results, so I am using the March 2018 subset in order to avoid that. Second, the Wikipedia clickstream data is quite large, and the March 2018 subset gives me enough data for an initial exploration.</p>
+<hr>
+<h2>The roadmap for this project</h2>
+<p>The examples above show that the Wikipedia clickstream data is just a long list of article-to-article or external-webpage-to-acticle references, along with the number of times those refernces were made. Many articles refer to many other articles, which makes this data highly interconnected. We can use graph theory and network analysis techniques to analyze this data. And since the clickstream data is pretty large, we'll need to load it into a graph database to get the best network analysis performance.<br>
+Here's the plan:</p>
+<ol>
+<li>ETL (Export, Transform and Load the data)</li>
+<li>Descriptive statistics and exploratory data analysis</li>
+<li>Let's ask the data some questions!  </li>
+</ol>
+<p>This blog post will cover the 1st step, and the next steps will be covered in subsequent posts.</p>
+<h1>ETL</h1>
+<p><em>(a.k.a. <a href="https://en.wikipedia.org/wiki/Extract,_transform,_load">Export, Transform and Load</a> the data)</em></p>
+<h2>Data download and cleaning</h2>
+<p>We can download the March 2018 Wikipedia clickstream data from <a href="https://dumps.wikimedia.org/other/clickstream/2018-03/">here</a>. The English Wikipedia clickstream data file is the largest of those, and it unzips to 1.3G. The second largest is the German Wikipedia clickstream, and it unzips to 219M. The data files for the other language domains are much smaller.  </p>
+<p>The Wikipedia clickstream datasets don't need much cleaning on their own.<br>
+There are just 4 columns:  </p>
+<ul>
+<li>referer webpage (freetext field)</li>
+<li>target article (freetext field)</li>
+<li>reference (categorical text field)</li>
+<li>number of occurrences of the reference (numerical)</li>
+</ul>
+<p>That being said, I'm going to import this data into the neo4j graph database, which has its own data import quirks. To address those, I need to clean up the quotes in the freetext fields. Neo4j seems to use quotes as a field terminator, even if you explicitly specify a different one, so the quotes need to be escaped. This can be easily done by running the <code>sed 's/"/\\"/g'</code> command in terminal for each of the data files. That's it for data cleaning, now we can load the data into a graph database. </p>
+<h2>Data modelling</h2>
+<p>Graph databases are structured differently from RDBMS like MySQL or PotgreSQL, where tables are the key concept. In a graph datbase, the key concepts are relationships (a.k.a. edges or links) and nodes (a.k.a. vertices or entities), and both of those can have various properties. Before we can load our data into a graph database, we need to decide what are our nodes and relationships in the data.  </p>
+<p>In terms of nodes and relationships, it's quite easy to model the Wikipedia clickstream data: the nodes are the webpages and the relationships are the references. But even in this simple case, there are several variations of this model that we could consider. We have two types of webpages in our data: the Wikipedia articles, where we know the exact IRL, and the external webpgages, where we only know a broad category of the webpage, like a search engine, but not the exact webpage. These two types of webpages are very different, and we might want to have different kinds of nodes for them, rather than a single node. Similarly, we have 3 kinds of references from webpage to article in the data. The references could be article-to-article links, external or other, and we could model each one of them as a separate relationship type. There are lots of options and no right answer, it all depends on the use case.</p>
+<p>For this project, I've decided on the following model:</p>
+<ul>
+<li>nodes:<ul>
+<li>Wikipedia articles<ul>
+<li>properties: article name, language domain</li>
+</ul>
+</li>
+<li>External sources<ul>
+<li>properties: external source type (e.g. search engine), language domain </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>relationships:<ul>
+<li>REFERRED_TO<ul>
+<li>properties: reference type (link, external, other), count of reference occurrences (users went from the referer article to the referred article N times in the data)</li>
+<li>this is a one-directional relationship</li>
+<li>An external source can only refer to articles, and cannot be referred to. An article can refer to other articles, and can be referred to by articles or external sources.  </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>We will take a look at what this model looks like in neo4j once we load the data.</p>
+<h2>Importing the data into neo4j</h2>
+<p>Now that we've defined our data model, let's import the clickstream data into neo4j. <a href="https://neo4j.com/">Neo4j</a> is a graph database that is both storage- and analytics-friendly. It is currenly the most popular graph database, and it has a free community edition. Instead of SQL, neo4j uses the <a href="https://en.wikipedia.org/wiki/Cypher_Query_Language">Cypher query language</a> in order to interact with the database. </p>
+<p>There are two ways to import data into neo4j: cypher <code>LOAD CSV</code> and neo4j's batch importer tool. Neo4j has a nice <a href="https://neo4j.com/developer/guide-import-csv/">guide</a> that covers both of them. For this project, I'll import the data using cypher <code>LOAD CSV</code>.</p>
+<p>The <code>LOAD CSV</code> cypher query can be run in either the cypher-shell or from python using the py2neo driver. In both cases, we're running cypher queries against the neo4j database.</p>
+<p><strong>Overview of import steps:</strong></p>
+<ol>
+<li>
+<p><em>Create indexes for any matches or merges that will happen during <code>LOAD CSV</code></em><br>
+    Indexes make finding nodes faster. Since Wikipedia clickstream data rows are webpage-to-article and article-to-acticle references with lots of articles repeating, when we use <code>LOAD CSV</code> to load this data into the neo4j database, we will use the <code>MERGE</code> statement, which checks if a node already exists before creating it. This means that the <code>LOAD CSV</code> query will search the database for each node to be created. Indexing the nodes beforehand makes this process much faster.<br>
+    <br>
+    Neo4j automatically manages indices and updates them whenever the graph database has changed. This means that we can set indices before loading the data, and benefit from them at load time. For more info about neo4j indices, see <a href="https://neo4j.com/docs/developer-manual/current/cypher/schema/index/">neo4j's index documentation</a>.<br>
+    <br></p>
+<p>Cypher query example for setting an index on Article nodes, which are unique by article title and language domain:  </p>
+<div class="highlight"><pre><span></span>CREATE INDEX ON :Article(title, language_code);
+</pre></div>
+
+
+<p>To see all indices set on a graph, run the following cypher statement:  </p>
+<div class="highlight"><pre><span></span>CALL db.indexes;
+</pre></div>
+
+
+<p><br></p>
+</li>
+<li>
+<p><em>Load nodes</em><br>
+    While it is possible to load both nodes and relationships in a single <code>LOAD CSV</code> query, it is often faster to load nodes and relationships in separate queries. To keep the cypher queries simple and easy to read, I'll also load the two types of nodes separately.<br>
+    <br></p>
+<p>Cypher query example for loading Article nodes (from internal references only, for now), for English language domain:  </p>
+<div class="highlight"><pre><span></span>USING PERIODIC COMMIT
+LOAD CSV FROM {myfilepath} AS row
+FIELDTERMINATOR &#39;\t&#39;
+WITH row
+WHERE row[2] &lt;&gt; &#39;external&#39;
+MERGE (n1:Article {title: row[0], language_code: &#39;EN&#39; })
+    ON CREATE SET
+        n1.language = &#39;English&#39; 
+MERGE (n2:Article {title: row[1], language_code: &#39;EN&#39; })
+    ON CREATE SET
+        n2.language = &#39;English&#39;
+;
+</pre></div>
+
+
+<p>Cypher query example for loading ExternalSource and Article nodes (from external references), for English language domain:  </p>
+<div class="highlight"><pre><span></span>USING PERIODIC COMMIT
+LOAD CSV FROM {myfilepath} AS row
+FIELDTERMINATOR &#39;\t&#39;
+WITH row
+WHERE row[2] = &#39;external&#39;
+MERGE (n1:ExternalSource {source_type: row[0], language_code: &#39;EN&#39; })
+    ON CREATE SET
+        n1.language = &#39;English&#39;,
+        n1.description = CASE 
+            WHEN row[0] = &#39;other-internal&#39; THEN &#39;a page from any other Wikimedia project (not Wikipedia)&#39;
+            WHEN row[0] = &#39;other-search&#39; THEN &#39;an external search engine&#39;
+            WHEN row[0] = &#39;other-external&#39; THEN &#39;any other external site (not search engine)&#39;
+            WHEN row[0] = &#39;other-empty&#39; THEN &#39;an empty referer&#39;
+            WHEN row[0] = &#39;other-other&#39; THEN &#39;anything else (catch-all)&#39;
+            ELSE &#39;&#39; END
+
+MERGE (n2:Article {title: row[1], language_code: &#39;EN&#39; })
+    ON CREATE SET
+        n2.language = &#39;English&#39;
+;
+</pre></div>
+
+
+<p><br></p>
+</li>
+<li>
+<p><em>Load relationships</em><br>
+    When loading relationships, we simply find the two nodes involved in the relationship in the graph database, and create a relationship record between them.<br>
+    <br></p>
+<p>Cypher query example for loading Article-to-Article references, for English language domain:  </p>
+<div class="highlight"><pre><span></span>USING PERIODIC COMMIT
+LOAD CSV FROM {myfilepath} AS row
+FIELDTERMINATOR &#39;\t&#39;
+WITH row
+WHERE row[2] &lt;&gt; &#39;external&#39;
+MATCH (n1:Article {title: row[0], language_code: &#39;EN&#39; })
+MATCH (n2:Article {title: row[1], language_code: &#39;EN&#39; })
+MERGE (n1)-[r:REFERRED_TO]-&gt;(n2)
+    ON CREATE SET
+        r.type = row[2],
+        r.count = row[3]
+;
+</pre></div>
+
+
+<p>Cypher query example for loading ExternalSource-to-Article references, for English language domain:  </p>
+<div class="highlight"><pre><span></span>USING PERIODIC COMMIT
+LOAD CSV FROM {myfilepath} AS row
+FIELDTERMINATOR &#39;\t&#39;
+WITH row
+WHERE row[2] = &#39;external&#39;
+MATCH (n1:ExternalSource {source_type: row[0], language_code: &#39;EN&#39; })
+MATCH (n2:Article {title: row[1], language_code: &#39;EN&#39; })
+MERGE (n1)-[r:REFERRED_TO]-&gt;(n2)
+    ON CREATE SET
+        r.type = row[2],
+        r.count = row[3]
+;
+</pre></div>
+
+
+<p><br></p>
+<p>When developing <code>LOAD CSV</code> queries, it is helpful to test them out to see how the data is being processed before writing the data to the graph. This can be done by replacing the <code>MERGE</code> statement with a <code>RETURN</code> statement and adding a <code>LIMIT</code> clause. The <code>RETURN</code> statement will return the result of the query without writing it to the database, and the <code>LIMIT</code> clause will limit the returned output to a small number of items for testing.<br>
+<br>
+Here are some examples:<br>
+<br>
+This query returns 10 data rows as cypher sees them:</p>
+<div class="highlight"><pre><span></span>LOAD CSV FROM {myfilepath} AS row
+FIELDTERMINATOR &#39;\t&#39;
+RETURN row
+LIMIT 10;
+</pre></div>
+
+
+<p>This query returns the first field and a newly created description field from 10 data rows:</p>
+<div class="highlight"><pre><span></span>LOAD CSV FROM {myfilepath} AS row
+FIELDTERMINATOR &#39;\t&#39;
+WITH row
+WHERE row[2] = &#39;external&#39;
+RETURN row[0] as n1_source_type,
+        CASE 
+            WHEN row[0] = &#39;other-internal&#39; THEN &#39;a page from any other Wikimedia project (not Wikipedia)&#39;
+            WHEN row[0] = &#39;other-search&#39; THEN &#39;an external search engine&#39;
+            WHEN row[0] = &#39;other-external&#39; THEN &#39;any other external site (not search engine)&#39;
+            WHEN row[0] = &#39;other-empty&#39; THEN &#39;an empty referer&#39;
+            WHEN row[0] = &#39;other-other&#39; THEN &#39;anything else (catch-all)&#39;
+            ELSE &#39;&#39; 
+        END as n1_description
+LIMIT 10;
+</pre></div>
+
+
+<p><br>    </p>
+</li>
+</ol>
+<p><a href="https://github.com/33eyes/wiki-clickstream-graph/blob/master/00_import_data_into_neo4j.ipynb">Here's my jupyter notebook</a> with the full import code for March 2018 Wikipedia clickstream data across all language domains using py2neo.</p>
+<hr>
+<p>Now that we have loaded the data into neo4j, we can check that our database schema matches our graph data model. The easiest way to explore the data that's been loaded into neo4j is through the <a href="https://neo4j.com/developer/guide-neo4j-browser/">neo4j browser</a>.  </p>
+<p>To view the database schema, run <code>CALL db.schema()</code> in the neo4j browser.<br>
+<br><br>
+<div class="centered" markdown="1"></p>
+<h5><strong>Wikipedia clickstream db schema</strong></h5>
+<p></div>
+<div class="centered" markdown="1">
+<img alt="Wikipedia clickstream db schema" src="http://33eyes.github.io/images/graph_db_schema.png">
+</div>
+<br></p>
+<p>To view a sample of the data in the graph, we can run <code>MATCH p=()-[r:REFERRED_TO]-&gt;(n:Article {language_code:'EN'}) RETURN p LIMIT 25</code> in the neo4j browser:<br>
+<div class="centered scaled" markdown="1">
+<img alt="neo4j query output" src="http://33eyes.github.io/images/english_wiki_25_rels_graph.png">
+</div></p>
+<p>From this sample subgraph, we can see that the clickstream data is highly interconnected. We can inspect closer a handful of nodes in the neo4j browser on a case by case basis, but to get a sense of what's going on in this graph as a whole, we need to use network analysis techniques.</p>
+<h1>Next steps</h1>
+<ul>
+<li>Descriptive statistics and EDA</li>
+<li>Hypotheses testing</li>
+</ul>
+<h1>Reference</h1>
+<h2>Wikipedia clickstream data</h2>
+<ul>
+<li>Data source/download: <a href="https://dumps.wikimedia.org/other/clickstream/">Wikipeadia clickstream data dumps</a></li>
+<li>Data description: <a href="https://meta.wikimedia.org/wiki/Research:Wikipedia_clickstream">Research:Wikipedia clickstream</a> </li>
+<li>The data is released and maintained by the Wikimedia Foundation's <a href="https://wikitech.wikimedia.org/wiki/Analytics">Analytics Engineering team</a></li>
+</ul>
+<h2>Neo4j graph database</h2>
+<ul>
+<li><a href="https://neo4j.com/developer/graph-database/">What is a graph database?</a></li>
+<li><a href="https://neo4j.com/download/">Download</a></li>
+<li><a href="https://neo4j.com/developer/guide-neo4j-browser/">Intro to neo4j's browser</a></li>
+<li><a href="https://neo4j.com/docs/">Documentation</a></li>
+<li><a href="https://nicolewhite.github.io/neo4j-jupyter/hello-world.html">Nicole White's Hello-World with jupyter and py2neo</a></li>
+<li><a href="https://neo4j.com/docs/developer-manual/current/cypher/">Cypher documentation</a>  </li>
+<li><a href="https://neo4j.com/developer/guide-data-modeling/">Guide to graph data modeling</a></li>
+</ul>
+<h2>This project</h2>
+<ul>
+<li><a href="https://github.com/33eyes/wiki-clickstream-graph">GitHub repo</a></li>
+<li><a href="https://github.com/33eyes/wiki-clickstream-graph/blob/master/00_import_data_into_neo4j.ipynb">Data import jupyter notebook</a></li>
+</ul>
+    </div>
+  </article>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+<div class="row">
+  <ul class="col-sm-6 list-inline">
+    <li class="list-inline-item"><a href="http://33eyes.github.io/archives.html">Archives</a></li>
+    <li class="list-inline-item"><a href="http://33eyes.github.io/categories.html">Categories</a></li>
+      <li class="list-inline-item"><a href="http://33eyes.github.io/tags.html">Tags</a></li>
+  </ul>
+  <p class="col-sm-6 text-sm-right text-muted">
+    Generated by <a href="https://github.com/getpelican/pelican" target="_blank">Pelican</a>
+    / <a href="https://github.com/nairobilug/pelican-alchemy" target="_blank">&#x2728;</a>
+  </p>
+</div>    </div>
+  </footer>
+  
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>
