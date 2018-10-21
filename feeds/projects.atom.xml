@@ -1,5 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Arina Igumenshcheva - Projects</title><link href="http://33eyes.github.io/" rel="alternate"></link><link href="http://33eyes.github.io/feeds/projects.atom.xml" rel="self"></link><id>http://33eyes.github.io/</id><updated>2018-04-16T10:20:00-04:00</updated><entry><title>Exploring Wikipedia clickstream data, part 1</title><link href="http://33eyes.github.io/2018-4-16-Wikipedia-clickstream-1.html" rel="alternate"></link><published>2018-04-16T10:20:00-04:00</published><updated>2018-04-16T10:20:00-04:00</updated><author><name>Arina Igumenshcheva</name></author><id>tag:33eyes.github.io,2018-04-16:/2018-4-16-Wikipedia-clickstream-1.html</id><summary type="html">&lt;p&gt;Whenever I want to learn about something, I google it, and sooner or later I end up on Wikipedia. And so do millions of other people, in many different languages. Wikipedia is a vast repository of knowledge organized into interlinked articles, and there are lots of ways to navigate through …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Whenever I want to learn about something, I google it, and sooner or later I end up on Wikipedia. And so do millions of other people, in many different languages. Wikipedia is a vast repository of knowledge organized into interlinked articles, and there are lots of ways to navigate through it as we learn. Whenever we browse Wikipedia, we learn and gather information, so perhaps our browsing behavior tendencies on Wikipedia can tell us something about how we learn on the internet. Do we tend to get the info that we need and move on? Do we delve into details and subtopics when we find something interesting? Do we tend to wander off into other topics? Do these behaviors vary across the different Wikipedia language domains? We can explore such questions by looking at the Wikipedia clickstream data.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Arina Igumenshcheva - Projects</title><link href="http://33eyes.github.io/" rel="alternate"></link><link href="http://33eyes.github.io/feeds/projects.atom.xml" rel="self"></link><id>http://33eyes.github.io/</id><updated>2018-04-20T10:20:00-04:00</updated><entry><title>Exploring Wikipedia clickstream data, part 2</title><link href="http://33eyes.github.io/2018-4-20-Wikipedia-clickstream-2.html" rel="alternate"></link><published>2018-04-20T10:20:00-04:00</published><updated>2018-04-20T10:20:00-04:00</updated><author><name>Arina Igumenshcheva</name></author><id>tag:33eyes.github.io,2018-04-20:/2018-4-20-Wikipedia-clickstream-2.html</id><summary type="html">&lt;p&gt;In the &lt;a href="http://www.arigu.me/2018-4-16-Wikipedia-clickstream-1.html"&gt;previous blog post&lt;/a&gt;, I've covered what Wikipedia clickstream data is, why we may want to explore it using network analysis, and how to load that data into a neo4j database. Here's a brief recap:  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Wikipedia clickstream data is data about which Wikipedia articles the users visit, and how …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;In the &lt;a href="http://www.arigu.me/2018-4-16-Wikipedia-clickstream-1.html"&gt;previous blog post&lt;/a&gt;, I've covered what Wikipedia clickstream data is, why we may want to explore it using network analysis, and how to load that data into a neo4j database. Here's a brief recap:  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Wikipedia clickstream data is data about which Wikipedia articles the users visit, and how they get to Wikipedia. This data is at aggregate level across users per website-to-article hop.&lt;/li&gt;
+&lt;li&gt;The data I am using for this project is the March 2018 Wikipedia clickstream data release. This means that my dataset contains data on how the users traversed Wikipedia during March 2018. &lt;/li&gt;
+&lt;li&gt;Wikipedia articles have lots of links to other articles, so the Wikipedia clickstream data is highly interconnected. These connections are best modeled and explored as a graph, and for this purpose we've loaded the data into the neo4j graph database.&lt;/li&gt;
+&lt;li&gt;The March 2018 Wikipedia clickstream data release provides separate datasets for 11 Wikipedia language domains. These language domains are separate Wikipedia projects, and their data is not interlinked article-to-article in the data release. As a result, we have loaded the data for each language domain as a separate graph.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In this post, I will simply describe and compare the Wikipedia clickstream data graphs across 11 language domains. Further analyses will be continued in the next post.&lt;/p&gt;
+&lt;h1&gt;Network properties&lt;/h1&gt;
+&lt;p&gt;Network properties are certain graph attributes that can be calculated to get a sense of the structure of the network. These properties can be used to compare networks to each other and to graph models.  &lt;/p&gt;
+&lt;h2&gt;Webpage-to-article clickstream graph&lt;/h2&gt;
+&lt;p&gt;First, lets take a look at the entire data that we have loaded into separate graphs per language domains. This data includes both Article nodes and ExternalSource nodes. ExternalSource nodes are just categories of external webpages from which users came to Wikipedia articles, and they tend to be connected to lots of articles.  &lt;/p&gt;
+&lt;h3&gt;Graph size&lt;/h3&gt;
+&lt;p&gt;Graph size is the number of nodes and/or edges in a network. In the webpage-to-article graph, we have two kinds of nodes: Articles and ExternalSources. Each language domain graph has 5 ExternalSource nodes, and we can calculate the counts of Article nodes and all edges in the graph.  &lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;language domain&lt;/th&gt;
+&lt;th&gt;articles count&lt;/th&gt;
+&lt;th&gt;external sources count&lt;/th&gt;
+&lt;th&gt;edges count&lt;/th&gt;
+&lt;th&gt;references count&lt;/th&gt;
+&lt;th&gt;average references per edge&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;English (EN)&lt;/td&gt;
+&lt;td&gt;4,636,312&lt;/td&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;25,917,378&lt;/td&gt;
+&lt;td&gt;7,209,691,324&lt;/td&gt;
+&lt;td&gt;278.18&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Russian (RU)&lt;/td&gt;
+&lt;td&gt;1,310,230&lt;/td&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;2,712,051&lt;/td&gt;
+&lt;td&gt;704,827,086&lt;/td&gt;
+&lt;td&gt;259.89&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;German (DE)&lt;/td&gt;
+&lt;td&gt;1,307,048&lt;/td&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;5,305,000&lt;/td&gt;
+&lt;td&gt;775,318,583&lt;/td&gt;
+&lt;td&gt;146.15&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;French (FR)&lt;/td&gt;
+&lt;td&gt;1,018,507&lt;/td&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;3,545,691&lt;/td&gt;
+&lt;td&gt;584,620,558&lt;/td&gt;
+&lt;td&gt;164.88&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Japanese (JA)&lt;/td&gt;
+&lt;td&gt;880,747&lt;/td&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;2,295,941&lt;/td&gt;
+&lt;td&gt;765,429,220&lt;/td&gt;
+&lt;td&gt;333.38&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Spanish (ES)&lt;/td&gt;
+&lt;td&gt;802,360&lt;/td&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;3,409,055&lt;/td&gt;
+&lt;td&gt;915,554,698&lt;/td&gt;
+&lt;td&gt;268.57&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Italian (IT)&lt;/td&gt;
+&lt;td&gt;698,313&lt;/td&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;2,919,343&lt;/td&gt;
+&lt;td&gt;476,970,761&lt;/td&gt;
+&lt;td&gt;163.38&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Portuguese (PT)&lt;/td&gt;
+&lt;td&gt;523,616&lt;/td&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;1,773,920&lt;/td&gt;
+&lt;td&gt;315,514,276&lt;/td&gt;
+&lt;td&gt;177.86&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Chinese (ZH)&lt;/td&gt;
+&lt;td&gt;497,074&lt;/td&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;1,238,296&lt;/td&gt;
+&lt;td&gt;291,813,076&lt;/td&gt;
+&lt;td&gt;235.66&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Polish (PL)&lt;/td&gt;
+&lt;td&gt;493,158&lt;/td&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;1,556,704&lt;/td&gt;
+&lt;td&gt;202,264,461&lt;/td&gt;
+&lt;td&gt;129.93&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Persian (FA)&lt;/td&gt;
+&lt;td&gt;170,187&lt;/td&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;375,565&lt;/td&gt;
+&lt;td&gt;74,059,745&lt;/td&gt;
+&lt;td&gt;197.20&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;In the graph size summary table above, we can see that the English language domain Wikipedia clickstream graph is the largest, with the highest counts of nodes and edges traversed in March 2018. This makes sense, since the English Wikipedia was the first Wikipedia project, and a large proportion of users browse the web using English.  &lt;/p&gt;
+&lt;p&gt;Plotting the language domain graph sizes measured by article count, we can see the dramatic difference between the English domain Wikipedia and all other language domains. The English domain Wikipedia users browsed through 4.6 million articles in March 2018. Russian and German domain Wikipedia users have browsed 1.3 million articles each, followed by French, Japanese, Spanish and Italian domain users who have browsed in the 0.7 to 1 million articles range each, followed by Portuguese, Chinese and Polish domain Wikipedia browsing of about half a million articles each. After that, there's another proportionally large drop off in articles browsed in the Persian domain Wikipedia, followed by all other language domain Wikipedias not listed here, since we only have the clickstream data for the largest 11 language domains.  &lt;/p&gt;
+&lt;div class="centered"&gt;
+&lt;h5&gt;&lt;strong&gt;Webpage-to-article clickstream graph sizes by language domain&lt;/strong&gt;&lt;/h5&gt;
+&lt;/div&gt;
+&lt;div class="centered"&gt;
+&lt;p&gt;&lt;img alt="barchart" src="http://33eyes.github.io/images/w2a_graph_size_barchart.png"&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;If we look at the counts of edges as an additional measure of graph sizes, we see a very similar pattern overall, with the exception of Russian and Japanese language domains, which seem to have relatively low edge counts given their article counts, compared to other language domains. &lt;br&gt;
+&lt;div class="centered" markdown="1"&gt;&lt;/p&gt;
+&lt;h5&gt;&lt;strong&gt;Webpage-to-article clickstream graph edge counts by language domain&lt;/strong&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;/div&gt;
+&lt;div class="centered" markdown="1"&gt;
+&lt;img alt="barchart" src="http://33eyes.github.io/images/w2a_graph_edges_count_barchart.png"&gt;
+&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;Edges connect Wikipedia article nodes, and the number of all possible directed edges in a graph is &lt;strong&gt;N(N-1)&lt;/strong&gt;, where &lt;strong&gt;N&lt;/strong&gt; is the number of nodes. The more article nodes we have in a graph, the more edges we can have. But different user clickstream behaviors can result in graph structures with higher or lower actual edge counts relative to the number of all possible edges. So the relative dips in edge counts may suggest structural differences in graphs and underlying user clickstream behaviors.&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;Now let's take a look at the distribution of references across the 11 language domains. References here are the individual hops by users from a webpage (an external website or a Wikipedia article) to a Wikipedia article, and their counts are the weights on the edges of our 11 weighted graphs. Again, we'd expect there to be more references in the language domain graphs that have more edges. &lt;/p&gt;
+&lt;div class="centered"&gt;
+&lt;h5&gt;&lt;strong&gt;Webpage-to-article clickstream reference counts by language domain&lt;/strong&gt;&lt;/h5&gt;
+&lt;/div&gt;
+&lt;div class="centered"&gt;
+&lt;p&gt;&lt;img alt="barchart" src="http://33eyes.github.io/images/w2a_graph_references_count_barchart.png"&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;As expected, the references count for English domain Wikipedia is much greater than for the other language domains. But if we look at the next top 5 language domains by reference count, they are all approximately in 600-900 million references range, with Spanish Wikipedia having the 2nd highest references count of 916 million. This is surprisingly uniform considering the vast difference in the edge counts among those 5 language domains. For example, the users of German and Russian Wikipedias browsed about the same number of articles, and they did about the same number of hops from websites to articles, shown by the reference counts. But the number of edges representing the clickstreams connecting those visited articles is about 2.7 million in Russian language domain, compared to 5.3 million in German language domain. This suggests that the users in the Russian language domain tended to take the same paths when browsing Wikipedia, while German language domain users took more diverse paths. This difference between German and Russian language domain clickstreams is also reflected in the average number of references per edge, as shown in the bar chart below.
+&lt;div class="centered" markdown="1"&gt;&lt;/p&gt;
+&lt;h5&gt;&lt;strong&gt;Webpage-to-article clickstream average references per edge by language domain&lt;/strong&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;/div&gt;
+&lt;div class="centered" markdown="1"&gt;
+&lt;img alt="barchart" src="http://33eyes.github.io/images/w2a_graph_avg_references_per_edge_barchart.png"&gt;
+&lt;/div&gt;
+This is the first bar chart in this post where the English domain Wikipedia does not tower over the other language domains. In fact, the Japanese language domain Wikipedia takes the cake here with an average of 333 references per edge, followed by English, Russian, Spanish and Chinese Wikipedias hanging around 250 references per edge, followed by Persian Wikipedia at about 200 references per edge, and the remaining language domains at about 150 references per edge.  &lt;/p&gt;
+&lt;p&gt;This lack of a clear pattern is interesting, because if we assume that people tend to browse large and well established Wikipedias more than others, we might expect higher traffic per edge in the larger language domain Wikipedias. On the other hand, if we assume that people browse approximately proportionally for about the same topics across the language domains, we might expect a more uniform distribution. These patterns are just extreme examples, and neither one of them shows up in the data. We will explore these differences further when we examine the reference distributions individually for each of the language domains.  &lt;/p&gt;
+&lt;p&gt;Overall, we can see that the larger clickstream traffic is associated with larger Wikipedias in the scatterplot below, although it's not a perfect association and we only have 11 language domains to observe. 
+&lt;div class="centered" markdown="1"&gt;&lt;/p&gt;
+&lt;h5&gt;&lt;strong&gt;Webpage-to-article clickstream references vs graph size&lt;/strong&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;/div&gt;
+&lt;div class="centered" markdown="1"&gt;
+&lt;img alt="barchart" src="http://33eyes.github.io/images/w2a_references_vs_articles_scatterplot.png"&gt;
+&lt;/div&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;And if we compare average references per edge to Wikipedia sizes, once again we see no clear relationship.
+&lt;div class="centered" markdown="1"&gt;&lt;/p&gt;
+&lt;h5&gt;&lt;strong&gt;Webpage-to-article clickstream average references per edge vs graph size&lt;/strong&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;/div&gt;
+&lt;div class="centered" markdown="1"&gt;
+&lt;img alt="barchart" src="http://33eyes.github.io/images/w2a_avg_references_per_edge_vs_articles_scatterplot.png"&gt;
+&lt;/div&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;Looking at graph sizes is the first step in network analysis, and already we can see lots of differences across Wikipedia language domains that would be interesting to investigate further. Before we do that, let's put our Wikipedia clickstream data into some context. The Wikipedia clickstream graph sizes we've seen above cover only the parts of Wikipedia language domains browsed by users in March 2018. Taking a look at how the Wikipedia clickstream graph sizes compare to the entire Wikipedias can tell us how heavily those Wikipedias were utilized in March 2018.&lt;/p&gt;
+&lt;h2&gt;Comparing our Wikipedia clickstream data to the entire Wikipedia&lt;/h2&gt;
+&lt;h2&gt;External source webpages&lt;/h2&gt;
+&lt;h2&gt;Article-to-article subgraph&lt;/h2&gt;
+&lt;h1&gt;Next steps&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;Hypotheses testing&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;Reference&lt;/h1&gt;
+&lt;h2&gt;Wikipedia clickstream data&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Data source/download: &lt;a href="https://dumps.wikimedia.org/other/clickstream/"&gt;Wikipedia clickstream data dumps&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Data description: &lt;a href="https://meta.wikimedia.org/wiki/Research:Wikipedia_clickstream"&gt;Research:Wikipedia clickstream&lt;/a&gt; &lt;/li&gt;
+&lt;li&gt;The data is released and maintained by the Wikimedia Foundation's &lt;a href="https://wikitech.wikimedia.org/wiki/Analytics"&gt;Analytics Engineering team&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Neo4j graph database&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://neo4j.com/developer/graph-database/"&gt;What is a graph database?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://neo4j.com/download/"&gt;Download&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://neo4j.com/developer/guide-neo4j-browser/"&gt;Intro to neo4j's browser&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://neo4j.com/docs/"&gt;Documentation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://nicolewhite.github.io/neo4j-jupyter/hello-world.html"&gt;Nicole White's Hello-World with jupyter and py2neo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://neo4j.com/docs/developer-manual/current/cypher/"&gt;Cypher documentation&lt;/a&gt;  &lt;/li&gt;
+&lt;li&gt;&lt;a href="https://neo4j.com/developer/guide-data-modeling/"&gt;Guide to graph data modeling&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;This project&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/33eyes/wiki-clickstream-graph"&gt;GitHub repo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/33eyes/wiki-clickstream-graph/blob/master/00_import_data_into_neo4j.ipynb"&gt;Data import jupyter notebook&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><category term="graph-databases"></category><category term="neo4j"></category><category term="Cypher"></category><category term="clickstream"></category><category term="ETL"></category><category term="network-analysis"></category><category term="Python"></category></entry><entry><title>Exploring Wikipedia clickstream data, part 1</title><link href="http://33eyes.github.io/2018-4-16-Wikipedia-clickstream-1.html" rel="alternate"></link><published>2018-04-16T10:20:00-04:00</published><updated>2018-04-16T10:20:00-04:00</updated><author><name>Arina Igumenshcheva</name></author><id>tag:33eyes.github.io,2018-04-16:/2018-4-16-Wikipedia-clickstream-1.html</id><summary type="html">&lt;p&gt;Whenever I want to learn about something, I google it, and sooner or later I end up on Wikipedia. And so do millions of other people, in many different languages. Wikipedia is a vast repository of knowledge organized into interlinked articles, and there are lots of ways to navigate through …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Whenever I want to learn about something, I google it, and sooner or later I end up on Wikipedia. And so do millions of other people, in many different languages. Wikipedia is a vast repository of knowledge organized into interlinked articles, and there are lots of ways to navigate through it as we learn. Whenever we browse Wikipedia, we learn and gather information, so perhaps our browsing behavior tendencies on Wikipedia can tell us something about how we learn on the internet. Do we tend to get the info that we need and move on? Do we delve into details and subtopics when we find something interesting? Do we tend to wander off into other topics? Do these behaviors vary across the different Wikipedia language domains? We can explore such questions by looking at the Wikipedia clickstream data.&lt;/p&gt;
 &lt;h2&gt;What is Wikipedia clickstream data?&lt;/h2&gt;
 &lt;p&gt;&lt;a href="https://en.wikipedia.org/wiki/Clickstream"&gt;Clickstream&lt;/a&gt; data in general is data about which webpages a website user visits. The Wikipedia clickstream data we will be looking at contains the paths Wikipedia users took from article to article on Wikipedia, along with general categories for webpages from which they came to Wikipedia. The Wikipedia clickstream data is released at aggregate level, summing up all user paths per webpage-article pair.  &lt;/p&gt;
 &lt;p&gt;In this project, I will explore the Wikipedia clickstream data across multiple language domains. Due to the highly interconnected nature of the data, I will use a graph database for data modeling, storage and manipulation, and network analysis for deriving insights from the data. I will be using the &lt;a href="https://neo4j.com/"&gt;neo4j&lt;/a&gt; graph database along with python.  &lt;/p&gt;
@@ -139,7 +336,7 @@ There are just 4 columns:  &lt;/p&gt;
 LOAD CSV FROM {myfilepath} AS row
 FIELDTERMINATOR &amp;#39;\t&amp;#39;
 WITH row
-WHERE row[2] &amp;lt;&amp;gt; &amp;#39;external&amp;#39;
+WHERE row[2] &amp;amp;lt;&amp;amp;gt; &amp;#39;external&amp;#39;
 MERGE (n1:Article {title: row[0], language_code: &amp;#39;EN&amp;#39; })
     ON CREATE SET
         n1.language = &amp;#39;English&amp;#39; 
@@ -181,34 +378,34 @@ MERGE (n2:Article {title: row[1], language_code: &amp;#39;EN&amp;#39; })
     When loading relationships, we simply find the two nodes involved in the relationship in the graph database, and create a relationship record between them.&lt;br&gt;
     &lt;br&gt;&lt;/p&gt;
 &lt;p&gt;Cypher query example for loading Article-to-Article references, for English language domain:  &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;USING PERIODIC COMMIT
-LOAD CSV FROM {myfilepath} AS row
-FIELDTERMINATOR &amp;#39;\t&amp;#39;
-WITH row
-WHERE row[2] &amp;lt;&amp;gt; &amp;#39;external&amp;#39;
-MATCH (n1:Article {title: row[0], language_code: &amp;#39;EN&amp;#39; })
-MATCH (n2:Article {title: row[1], language_code: &amp;#39;EN&amp;#39; })
-MERGE (n1)-[r:REFERRED_TO]-&amp;gt;(n2)
-    ON CREATE SET
-        r.type = row[2],
-        r.count = row[3]
-;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nt"&gt;USING&lt;/span&gt; &lt;span class="nt"&gt;PERIODIC&lt;/span&gt; &lt;span class="nt"&gt;COMMIT&lt;/span&gt;
+&lt;span class="nt"&gt;LOAD&lt;/span&gt; &lt;span class="nt"&gt;CSV&lt;/span&gt; &lt;span class="nt"&gt;FROM&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="err"&gt;myfilepath&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="nt"&gt;AS&lt;/span&gt; &lt;span class="nt"&gt;row&lt;/span&gt;
+&lt;span class="nt"&gt;FIELDTERMINATOR&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;\t&amp;#39;&lt;/span&gt;
+&lt;span class="nt"&gt;WITH&lt;/span&gt; &lt;span class="nt"&gt;row&lt;/span&gt;
+&lt;span class="nt"&gt;WHERE&lt;/span&gt; &lt;span class="nt"&gt;row&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nt"&gt;lt&lt;/span&gt;&lt;span class="o"&gt;;&amp;amp;&lt;/span&gt;&lt;span class="nt"&gt;gt&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;external&amp;#39;&lt;/span&gt;
+&lt;span class="nt"&gt;MATCH&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;n1&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nd"&gt;Article&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;row&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;language_code&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;EN&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="nt"&gt;MATCH&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;n2&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nd"&gt;Article&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;row&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;language_code&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;EN&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="nt"&gt;MERGE&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;n1&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="nt"&gt;-&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;r&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nx"&gt;REFERRED_TO&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="nt"&gt;-&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nt"&gt;gt&lt;/span&gt;&lt;span class="o"&gt;;(&lt;/span&gt;&lt;span class="nt"&gt;n2&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+    &lt;span class="nt"&gt;ON&lt;/span&gt; &lt;span class="nt"&gt;CREATE&lt;/span&gt; &lt;span class="nt"&gt;SET&lt;/span&gt;
+        &lt;span class="nt"&gt;r&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;type&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;row&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;
+        &lt;span class="nt"&gt;r&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;count&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;row&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;
+&lt;span class="o"&gt;;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Cypher query example for loading ExternalSource-to-Article references, for English language domain:  &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;USING PERIODIC COMMIT
-LOAD CSV FROM {myfilepath} AS row
-FIELDTERMINATOR &amp;#39;\t&amp;#39;
-WITH row
-WHERE row[2] = &amp;#39;external&amp;#39;
-MATCH (n1:ExternalSource {source_type: row[0], language_code: &amp;#39;EN&amp;#39; })
-MATCH (n2:Article {title: row[1], language_code: &amp;#39;EN&amp;#39; })
-MERGE (n1)-[r:REFERRED_TO]-&amp;gt;(n2)
-    ON CREATE SET
-        r.type = row[2],
-        r.count = row[3]
-;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nt"&gt;USING&lt;/span&gt; &lt;span class="nt"&gt;PERIODIC&lt;/span&gt; &lt;span class="nt"&gt;COMMIT&lt;/span&gt;
+&lt;span class="nt"&gt;LOAD&lt;/span&gt; &lt;span class="nt"&gt;CSV&lt;/span&gt; &lt;span class="nt"&gt;FROM&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="err"&gt;myfilepath&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="nt"&gt;AS&lt;/span&gt; &lt;span class="nt"&gt;row&lt;/span&gt;
+&lt;span class="nt"&gt;FIELDTERMINATOR&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;\t&amp;#39;&lt;/span&gt;
+&lt;span class="nt"&gt;WITH&lt;/span&gt; &lt;span class="nt"&gt;row&lt;/span&gt;
+&lt;span class="nt"&gt;WHERE&lt;/span&gt; &lt;span class="nt"&gt;row&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;external&amp;#39;&lt;/span&gt;
+&lt;span class="nt"&gt;MATCH&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;n1&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nd"&gt;ExternalSource&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;source_type&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;row&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;language_code&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;EN&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="nt"&gt;MATCH&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;n2&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nd"&gt;Article&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;title&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;row&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;language_code&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;EN&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="nt"&gt;MERGE&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;n1&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="nt"&gt;-&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;r&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nx"&gt;REFERRED_TO&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="nt"&gt;-&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nt"&gt;gt&lt;/span&gt;&lt;span class="o"&gt;;(&lt;/span&gt;&lt;span class="nt"&gt;n2&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+    &lt;span class="nt"&gt;ON&lt;/span&gt; &lt;span class="nt"&gt;CREATE&lt;/span&gt; &lt;span class="nt"&gt;SET&lt;/span&gt;
+        &lt;span class="nt"&gt;r&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;type&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;row&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;
+        &lt;span class="nt"&gt;r&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;count&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nt"&gt;row&lt;/span&gt;&lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="cp"&gt;]&lt;/span&gt;
+&lt;span class="o"&gt;;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
