@@ -80,11 +80,16 @@ A very basic graph can be just two nodes connected by a relationship. If we have
   &lt;div class="col" style="text-align: center;"&gt;
   &lt;img alt="graph with many node and relationship types" style="width:350px;" src="/images/graph_with_many_types_sm.png"&gt;
   &lt;/div&gt;
-&lt;/div&gt;&lt;/p&gt;
-&lt;p&gt;Many different kinds of nodes and relationships are possible in a graph. The exact nature of nodes and how they are connected determines what calculations can be done on the graph.  &lt;/p&gt;
-&lt;p&gt;Neo4j's graph database allows both directed relationships and properties on a graph,
-so it can be used to model data as a directed property graph.&lt;/p&gt;
-&lt;p&gt;When our connected data is modeled as a graph, we can leverage graph structure properties to either
+&lt;/div&gt;
+&lt;br&gt;&lt;br&gt;
+In large connected datasets, these basic node and relationship elements can form complicated graph structures.  &lt;/p&gt;
+&lt;div class="centered scaled"&gt;
+&lt;p&gt;&lt;img alt="internet map graph" src="https://upload.wikimedia.org/wikipedia/commons/d/d2/Internet_map_1024.jpg"&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Image source: &lt;a href="https://en.wikipedia.org/wiki/Complex_network#/media/File:Internet_map_1024.jpg"&gt;Partial map of the Internet based on the January 15, 2005 data found on opte.org.&lt;/a&gt; (node = IP address)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;p&gt;When connected data is modeled as a graph, we can leverage graph structure properties to either
 optimize connected data processing in real-time solutions (a use case for devs), or derive new insights (a use case for researchers, analysts and data scientists). Or, we might just visualize the data graph as is, and visually investigate the data. The graph data representation is intuitive enough for anyone to just look at it and gain
 some understanding of the data.&lt;/p&gt;
 &lt;h2&gt;&lt;code&gt;(graphs)-[:ARE]-&amp;gt;(everywhere)&lt;/code&gt;&lt;/h2&gt;
@@ -96,7 +101,7 @@ and many of them choose Neo4j to do that.
 Fraud detection is at this point a classic problem to tackle with graph tech, and lots of
 large financial institutions use graph tech to make financial data connections
 transparent enough so that fraudulent behavior can't hide within big data.&lt;br&gt;
-Those are just the larger graph-tech-using businesses that people are likely to run into on a daily basis, but there are many other industries and businesses that are using graph technologies as well, ranging from retail to healthcare to scientific research.  &lt;/p&gt;
+Those are just the larger businesses that people are likely to run into on a daily basis, but there are many other industries and companies that are using graph technologies as well, ranging from retail to healthcare to scientific research.  &lt;/p&gt;
 &lt;h2&gt;Graphs + data science = new insights into connected data&lt;/h2&gt;
 &lt;p&gt;Graphs are an incredibly powerful data tool that spans many industries and techniques.
 I think that graphs are going to become an essential tool for data scientists in the near future. While a graph approach is not needed in every data-driven research or statistical analysis project, more and more of the big data sources and challenges involve connected data. From wearable fitness trackers to online consumer behavior, to drug interactions, to movie recommendations, to scientific research databases, people are constantly creating vast amounts of interconnected data. As data scientists, we are tasked with extracting insights from that data, and we can gain novel insights from the relationship structures within the interconnected data by adding graph techniques to our data science toolkits.  &lt;/p&gt;
@@ -109,22 +114,34 @@ It can help data scientists better understand their data and make informed decis
 &lt;p&gt;Graph algorithms can be used to quantify graph structures within the connected data. Currently there are 3 main kinds of graph algorithms: centrality, community detection, and pathfinding.&lt;/p&gt;
 &lt;h6&gt;&lt;strong&gt;Centrality algorithms&lt;/strong&gt;&lt;/h6&gt;
 &lt;p&gt;Centrality algorithms measure the relationship-based importance of individual nodes within a network. They assign a computed metric to each node, ranking its importance in the graph.  &lt;/p&gt;
+&lt;div class="row"&gt;
+&lt;div class="col-sm-7"&gt;
+
 &lt;h6&gt;Typical questions these algorithms can help answer:&lt;/h6&gt;
 &lt;ul&gt;
 &lt;li&gt;Who are the key influencers in your connected data?  &lt;/li&gt;
 &lt;li&gt;Who has the most connections?  &lt;/li&gt;
-&lt;li&gt;Who is directly or indirectly connected the largest proportion of the network?&lt;/li&gt;
+&lt;li&gt;Who is directly or indirectly connected to the largest proportion of the network?&lt;/li&gt;
 &lt;li&gt;Who connects distinct groups of nodes that are otherwise not connected to each other?&lt;/li&gt;
 &lt;li&gt;If a specific node is to be changed or removed, how important is this to the network? How many of the other nodes will be affected, and how far can these effects propagate through the graph?&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;&lt;/div&gt;
+  &lt;div class="col-sm-5" style="text-align: center;"&gt;
+    &lt;img alt="graph centrality sketch" style="width:100%;" src="/images/graph_centrality.png"&gt;
+  &lt;/div&gt;&lt;/p&gt;
+&lt;/div&gt;
 &lt;h6&gt;Algorithm examples:&lt;/h6&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://neo4j.com/docs/graph-algorithms/current/algorithms/page-rank/"&gt;PageRank&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://neo4j.com/docs/graph-algorithms/current/algorithms/betweenness-centrality/"&gt;Betweenness centrality&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://neo4j.com/docs/graph-algorithms/current/algorithms/closeness-centrality/"&gt;Closeness centrality&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h6&gt;&lt;strong&gt;Community detection&lt;/strong&gt;&lt;/h6&gt;
 &lt;p&gt;Community detection algorithms are used to cluster data based on the distribution of relationships in a graph. The resulting clusters of nodes are the sub-communities within the whole network, where the nodes within the communities have stronger relationship ties to each other than to the nodes in other communities.&lt;/p&gt;
+&lt;div class="row"&gt;
+&lt;div class="col-sm-7"&gt;
+
 &lt;h6&gt;Typical questions these algorithms can help answer:&lt;/h6&gt;
 &lt;ul&gt;
 &lt;li&gt;Are there communities in your connected data? What are they?&lt;/li&gt;
@@ -138,13 +155,22 @@ It can help data scientists better understand their data and make informed decis
 &lt;li&gt;&lt;a href="https://neo4j.com/docs/graph-algorithms/current/algorithms/triangle-counting-clustering-coefficient/"&gt;Triangle counting&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://neo4j.com/docs/graph-algorithms/current/algorithms/connected-components/"&gt;Connected components&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;&lt;/div&gt;
+  &lt;div class="col-sm-5" style="text-align: center;"&gt;
+    &lt;img alt="graph communities sketch" style="width:100%;" src="/images/graph_communities.png"&gt;
+  &lt;/div&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h6&gt;&lt;strong&gt;Pathfinding&lt;/strong&gt;&lt;/h6&gt;
 &lt;p&gt;These algorithms find and evaluate paths in a network. They can help answer a wide range of questions related to traversing a path in a graph along nodes and relationships. This set of algorithms includes a random walk long the graph.&lt;/p&gt;
+&lt;div class="row"&gt;
+&lt;div class="col-sm-7"&gt;
+
 &lt;h6&gt;Typical questions these algorithms can help answer:&lt;/h6&gt;
 &lt;ul&gt;
 &lt;li&gt;What's the shortest path from node A to node B?&lt;/li&gt;
-&lt;li&gt;If we start at node A, where can we go in the graph? What are the possible paths?&lt;/li&gt;
-&lt;li&gt;What can we learn about our network by going for a random walk on it?&lt;/li&gt;
+&lt;li&gt;If we start at node A, where can we go in the graph?&lt;br&gt;
+  What are the possible paths?&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Six_degrees_of_separation"&gt;6 degrees of separation&lt;/a&gt;-based questions&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h6&gt;Algorithm examples:&lt;/h6&gt;
@@ -153,6 +179,12 @@ It can help data scientists better understand their data and make informed decis
 &lt;li&gt;&lt;a href="https://neo4j.com/docs/graph-algorithms/current/algorithms/minimum-weight-spanning-tree/"&gt;Minimum weight spanning tree&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://neo4j.com/docs/graph-algorithms/current/algorithms/random-walk/"&gt;Random walk&lt;/a&gt;  &lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;&lt;/div&gt;
+  &lt;div class="col-sm-5" style="text-align: center;"&gt;
+    &lt;img alt="graph path sketch" style="width:100%;" src="/images/graph_path.png"&gt;
+  &lt;/div&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h5&gt;&lt;strong&gt;Feature extraction&lt;/strong&gt;&lt;/h5&gt;
 &lt;p&gt;Feature extraction in data science can mean two things. There is the more general definition of deriving a set of features from input data, and there is a more specific definition in machine learning as a dimensionality reduction technique. I'm going with the more general definition first here, and then with the machine learning one.&lt;/p&gt;
 &lt;h6&gt;&lt;strong&gt;Graph metrics and properties as features&lt;/strong&gt;&lt;/h6&gt;

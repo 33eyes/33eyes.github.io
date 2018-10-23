@@ -15,14 +15,14 @@
 <!--  <link rel="stylesheet" href="http://33eyes.github.io/theme/css/font-awesome.min.css">
 -->
   <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
-
+  
   <link rel="stylesheet" href="http://33eyes.github.io/theme/css/pygments/monokai.min.css">
   <link rel="stylesheet" href="http://33eyes.github.io/theme/css/theme.css">
 
   <link rel="alternate" type="application/atom+xml" title="Full Atom Feed"
         href="http://33eyes.github.io/feeds/all.atom.xml">
   <link rel="alternate" type="application/atom+xml" title="Categories Atom Feed"
-        href="http://33eyes.github.io/feeds/conferences.atom.xml">
+        href="http://33eyes.github.io/feeds/conferences.atom.xml">  
   <meta name="description" content="About a month ago, I've attended the GraphConnect conference in NYC. I had a great time at the conference, and thought I'd share my experience, along with a brief intro to graph concepts and technologies. About the conference Day 1: Sessions Keynote speeches Talks about applications of graph databases and …">
 
 
@@ -60,7 +60,7 @@
 					<a href="/author/arina-igumenshcheva.html" class="nav-link-custom">about</a>
 				  </li>
 			  </ul>
-
+		
 		</div>
 	</div>
 	<div class="row subtitle-row">
@@ -169,11 +169,16 @@ A very basic graph can be just two nodes connected by a relationship. If we have
   <div class="col" style="text-align: center;">
   <img alt="graph with many node and relationship types" style="width:350px;" src="/images/graph_with_many_types_sm.png">
   </div>
-</div></p>
-<p>Many different kinds of nodes and relationships are possible in a graph. The exact nature of nodes and how they are connected determines what calculations can be done on the graph.  </p>
-<p>Neo4j's graph database allows both directed relationships and properties on a graph,
-so it can be used to model data as a directed property graph.</p>
-<p>When our connected data is modeled as a graph, we can leverage graph structure properties to either
+</div>
+<br><br>
+In large connected datasets, these basic node and relationship elements can form complicated graph structures.  </p>
+<div class="centered scaled">
+<p><img alt="internet map graph" src="https://upload.wikimedia.org/wikipedia/commons/d/d2/Internet_map_1024.jpg"></p>
+<blockquote>
+<p>Image source: <a href="https://en.wikipedia.org/wiki/Complex_network#/media/File:Internet_map_1024.jpg">Partial map of the Internet based on the January 15, 2005 data found on opte.org.</a> (node = IP address)</p>
+</blockquote>
+</div>
+<p>When connected data is modeled as a graph, we can leverage graph structure properties to either
 optimize connected data processing in real-time solutions (a use case for devs), or derive new insights (a use case for researchers, analysts and data scientists). Or, we might just visualize the data graph as is, and visually investigate the data. The graph data representation is intuitive enough for anyone to just look at it and gain
 some understanding of the data.</p>
 <h2><code>(graphs)-[:ARE]-&gt;(everywhere)</code></h2>
@@ -185,7 +190,7 @@ and many of them choose Neo4j to do that.
 Fraud detection is at this point a classic problem to tackle with graph tech, and lots of
 large financial institutions use graph tech to make financial data connections
 transparent enough so that fraudulent behavior can't hide within big data.<br>
-Those are just the larger graph-tech-using businesses that people are likely to run into on a daily basis, but there are many other industries and businesses that are using graph technologies as well, ranging from retail to healthcare to scientific research.  </p>
+Those are just the larger businesses that people are likely to run into on a daily basis, but there are many other industries and companies that are using graph technologies as well, ranging from retail to healthcare to scientific research.  </p>
 <h2>Graphs + data science = new insights into connected data</h2>
 <p>Graphs are an incredibly powerful data tool that spans many industries and techniques.
 I think that graphs are going to become an essential tool for data scientists in the near future. While a graph approach is not needed in every data-driven research or statistical analysis project, more and more of the big data sources and challenges involve connected data. From wearable fitness trackers to online consumer behavior, to drug interactions, to movie recommendations, to scientific research databases, people are constantly creating vast amounts of interconnected data. As data scientists, we are tasked with extracting insights from that data, and we can gain novel insights from the relationship structures within the interconnected data by adding graph techniques to our data science toolkits.  </p>
@@ -198,22 +203,34 @@ It can help data scientists better understand their data and make informed decis
 <p>Graph algorithms can be used to quantify graph structures within the connected data. Currently there are 3 main kinds of graph algorithms: centrality, community detection, and pathfinding.</p>
 <h6><strong>Centrality algorithms</strong></h6>
 <p>Centrality algorithms measure the relationship-based importance of individual nodes within a network. They assign a computed metric to each node, ranking its importance in the graph.  </p>
+<div class="row">
+<div class="col-sm-7">
+
 <h6>Typical questions these algorithms can help answer:</h6>
 <ul>
 <li>Who are the key influencers in your connected data?  </li>
 <li>Who has the most connections?  </li>
-<li>Who is directly or indirectly connected the largest proportion of the network?</li>
-<li>Who connects distinct groups of nodes that are otherwise not connected to each other? </li>
+<li>Who is directly or indirectly connected to the largest proportion of the network?</li>
+<li>Who connects distinct groups of nodes that are otherwise not connected to each other?</li>
 <li>If a specific node is to be changed or removed, how important is this to the network? How many of the other nodes will be affected, and how far can these effects propagate through the graph?</li>
 </ul>
+<p></div>
+  <div class="col-sm-5" style="text-align: center;">
+    <img alt="graph centrality sketch" style="width:100%;" src="/images/graph_centrality.png">
+  </div></p>
+</div>
 <h6>Algorithm examples:</h6>
 <ul>
 <li><a href="https://neo4j.com/docs/graph-algorithms/current/algorithms/page-rank/">PageRank</a></li>
 <li><a href="https://neo4j.com/docs/graph-algorithms/current/algorithms/betweenness-centrality/">Betweenness centrality</a></li>
 <li><a href="https://neo4j.com/docs/graph-algorithms/current/algorithms/closeness-centrality/">Closeness centrality</a></li>
 </ul>
+<p><br></p>
 <h6><strong>Community detection</strong></h6>
 <p>Community detection algorithms are used to cluster data based on the distribution of relationships in a graph. The resulting clusters of nodes are the sub-communities within the whole network, where the nodes within the communities have stronger relationship ties to each other than to the nodes in other communities.</p>
+<div class="row">
+<div class="col-sm-7">
+
 <h6>Typical questions these algorithms can help answer:</h6>
 <ul>
 <li>Are there communities in your connected data? What are they?</li>
@@ -227,13 +244,22 @@ It can help data scientists better understand their data and make informed decis
 <li><a href="https://neo4j.com/docs/graph-algorithms/current/algorithms/triangle-counting-clustering-coefficient/">Triangle counting</a></li>
 <li><a href="https://neo4j.com/docs/graph-algorithms/current/algorithms/connected-components/">Connected components</a></li>
 </ul>
+<p></div>
+  <div class="col-sm-5" style="text-align: center;">
+    <img alt="graph communities sketch" style="width:100%;" src="/images/graph_communities.png">
+  </div></p>
+</div>
+<p><br></p>
 <h6><strong>Pathfinding</strong></h6>
 <p>These algorithms find and evaluate paths in a network. They can help answer a wide range of questions related to traversing a path in a graph along nodes and relationships. This set of algorithms includes a random walk long the graph.</p>
+<div class="row">
+<div class="col-sm-7">
+
 <h6>Typical questions these algorithms can help answer:</h6>
 <ul>
 <li>What's the shortest path from node A to node B?</li>
-<li>If we start at node A, where can we go in the graph? What are the possible paths?</li>
-<li>What can we learn about our network by going for a random walk on it?</li>
+<li>If we start at node A, where can we go in the graph?<br>
+  What are the possible paths?</li>
 <li><a href="https://en.wikipedia.org/wiki/Six_degrees_of_separation">6 degrees of separation</a>-based questions</li>
 </ul>
 <h6>Algorithm examples:</h6>
@@ -242,6 +268,12 @@ It can help data scientists better understand their data and make informed decis
 <li><a href="https://neo4j.com/docs/graph-algorithms/current/algorithms/minimum-weight-spanning-tree/">Minimum weight spanning tree</a></li>
 <li><a href="https://neo4j.com/docs/graph-algorithms/current/algorithms/random-walk/">Random walk</a>  </li>
 </ul>
+<p></div>
+  <div class="col-sm-5" style="text-align: center;">
+    <img alt="graph path sketch" style="width:100%;" src="/images/graph_path.png">
+  </div></p>
+</div>
+<p><br><br></p>
 <h5><strong>Feature extraction</strong></h5>
 <p>Feature extraction in data science can mean two things. There is the more general definition of deriving a set of features from input data, and there is a more specific definition in machine learning as a dimensionality reduction technique. I'm going with the more general definition first here, and then with the machine learning one.</p>
 <h6><strong>Graph metrics and properties as features</strong></h6>
@@ -304,7 +336,7 @@ Similarly, we can extract any kind of localized graph feature associated with a 
   </p>
 </div>    </div>
   </footer>
-
+  
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

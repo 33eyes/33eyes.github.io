@@ -234,7 +234,7 @@ There are just 4 columns:  </p>
 LOAD CSV FROM {myfilepath} AS row
 FIELDTERMINATOR &#39;\t&#39;
 WITH row
-WHERE row[2] &lt;&gt; &#39;external&#39;
+WHERE row[2] &amp;lt;&amp;gt; &#39;external&#39;
 MERGE (n1:Article {title: row[0], language_code: &#39;EN&#39; })
     ON CREATE SET
         n1.language = &#39;English&#39; 
@@ -276,34 +276,34 @@ MERGE (n2:Article {title: row[1], language_code: &#39;EN&#39; })
     When loading relationships, we simply find the two nodes involved in the relationship in the graph database, and create a relationship record between them.<br>
     <br></p>
 <p>Cypher query example for loading Article-to-Article references, for English language domain:  </p>
-<div class="highlight"><pre><span></span>USING PERIODIC COMMIT
-LOAD CSV FROM {myfilepath} AS row
-FIELDTERMINATOR &#39;\t&#39;
-WITH row
-WHERE row[2] &lt;&gt; &#39;external&#39;
-MATCH (n1:Article {title: row[0], language_code: &#39;EN&#39; })
-MATCH (n2:Article {title: row[1], language_code: &#39;EN&#39; })
-MERGE (n1)-[r:REFERRED_TO]-&gt;(n2)
-    ON CREATE SET
-        r.type = row[2],
-        r.count = row[3]
-;
+<div class="highlight"><pre><span></span><span class="nt">USING</span> <span class="nt">PERIODIC</span> <span class="nt">COMMIT</span>
+<span class="nt">LOAD</span> <span class="nt">CSV</span> <span class="nt">FROM</span> <span class="p">{</span><span class="err">myfilepath</span><span class="p">}</span> <span class="nt">AS</span> <span class="nt">row</span>
+<span class="nt">FIELDTERMINATOR</span> <span class="s1">&#39;\t&#39;</span>
+<span class="nt">WITH</span> <span class="nt">row</span>
+<span class="nt">WHERE</span> <span class="nt">row</span><span class="cp">[</span><span class="mi">2</span><span class="cp">]</span> <span class="o">&amp;</span><span class="nt">lt</span><span class="o">;&amp;</span><span class="nt">gt</span><span class="o">;</span> <span class="s1">&#39;external&#39;</span>
+<span class="nt">MATCH</span> <span class="o">(</span><span class="nt">n1</span><span class="p">:</span><span class="nd">Article</span> <span class="p">{</span><span class="n">title</span><span class="p">:</span> <span class="kc">row</span><span class="cp">[</span><span class="mi">0</span><span class="cp">]</span><span class="p">,</span> <span class="n">language_code</span><span class="o">:</span> <span class="s1">&#39;EN&#39;</span> <span class="p">}</span><span class="o">)</span>
+<span class="nt">MATCH</span> <span class="o">(</span><span class="nt">n2</span><span class="p">:</span><span class="nd">Article</span> <span class="p">{</span><span class="n">title</span><span class="p">:</span> <span class="kc">row</span><span class="cp">[</span><span class="mi">1</span><span class="cp">]</span><span class="p">,</span> <span class="n">language_code</span><span class="o">:</span> <span class="s1">&#39;EN&#39;</span> <span class="p">}</span><span class="o">)</span>
+<span class="nt">MERGE</span> <span class="o">(</span><span class="nt">n1</span><span class="o">)</span><span class="nt">-</span><span class="cp">[</span><span class="nx">r</span><span class="p">:</span><span class="nx">REFERRED_TO</span><span class="cp">]</span><span class="nt">-</span><span class="o">&amp;</span><span class="nt">gt</span><span class="o">;(</span><span class="nt">n2</span><span class="o">)</span>
+    <span class="nt">ON</span> <span class="nt">CREATE</span> <span class="nt">SET</span>
+        <span class="nt">r</span><span class="p">.</span><span class="nc">type</span> <span class="o">=</span> <span class="nt">row</span><span class="cp">[</span><span class="mi">2</span><span class="cp">]</span><span class="o">,</span>
+        <span class="nt">r</span><span class="p">.</span><span class="nc">count</span> <span class="o">=</span> <span class="nt">row</span><span class="cp">[</span><span class="mi">3</span><span class="cp">]</span>
+<span class="o">;</span>
 </pre></div>
 
 
 <p>Cypher query example for loading ExternalSource-to-Article references, for English language domain:  </p>
-<div class="highlight"><pre><span></span>USING PERIODIC COMMIT
-LOAD CSV FROM {myfilepath} AS row
-FIELDTERMINATOR &#39;\t&#39;
-WITH row
-WHERE row[2] = &#39;external&#39;
-MATCH (n1:ExternalSource {source_type: row[0], language_code: &#39;EN&#39; })
-MATCH (n2:Article {title: row[1], language_code: &#39;EN&#39; })
-MERGE (n1)-[r:REFERRED_TO]-&gt;(n2)
-    ON CREATE SET
-        r.type = row[2],
-        r.count = row[3]
-;
+<div class="highlight"><pre><span></span><span class="nt">USING</span> <span class="nt">PERIODIC</span> <span class="nt">COMMIT</span>
+<span class="nt">LOAD</span> <span class="nt">CSV</span> <span class="nt">FROM</span> <span class="p">{</span><span class="err">myfilepath</span><span class="p">}</span> <span class="nt">AS</span> <span class="nt">row</span>
+<span class="nt">FIELDTERMINATOR</span> <span class="s1">&#39;\t&#39;</span>
+<span class="nt">WITH</span> <span class="nt">row</span>
+<span class="nt">WHERE</span> <span class="nt">row</span><span class="cp">[</span><span class="mi">2</span><span class="cp">]</span> <span class="o">=</span> <span class="s1">&#39;external&#39;</span>
+<span class="nt">MATCH</span> <span class="o">(</span><span class="nt">n1</span><span class="p">:</span><span class="nd">ExternalSource</span> <span class="p">{</span><span class="n">source_type</span><span class="p">:</span> <span class="kc">row</span><span class="cp">[</span><span class="mi">0</span><span class="cp">]</span><span class="p">,</span> <span class="n">language_code</span><span class="o">:</span> <span class="s1">&#39;EN&#39;</span> <span class="p">}</span><span class="o">)</span>
+<span class="nt">MATCH</span> <span class="o">(</span><span class="nt">n2</span><span class="p">:</span><span class="nd">Article</span> <span class="p">{</span><span class="n">title</span><span class="p">:</span> <span class="kc">row</span><span class="cp">[</span><span class="mi">1</span><span class="cp">]</span><span class="p">,</span> <span class="n">language_code</span><span class="o">:</span> <span class="s1">&#39;EN&#39;</span> <span class="p">}</span><span class="o">)</span>
+<span class="nt">MERGE</span> <span class="o">(</span><span class="nt">n1</span><span class="o">)</span><span class="nt">-</span><span class="cp">[</span><span class="nx">r</span><span class="p">:</span><span class="nx">REFERRED_TO</span><span class="cp">]</span><span class="nt">-</span><span class="o">&amp;</span><span class="nt">gt</span><span class="o">;(</span><span class="nt">n2</span><span class="o">)</span>
+    <span class="nt">ON</span> <span class="nt">CREATE</span> <span class="nt">SET</span>
+        <span class="nt">r</span><span class="p">.</span><span class="nc">type</span> <span class="o">=</span> <span class="nt">row</span><span class="cp">[</span><span class="mi">2</span><span class="cp">]</span><span class="o">,</span>
+        <span class="nt">r</span><span class="p">.</span><span class="nc">count</span> <span class="o">=</span> <span class="nt">row</span><span class="cp">[</span><span class="mi">3</span><span class="cp">]</span>
+<span class="o">;</span>
 </pre></div>
 
 

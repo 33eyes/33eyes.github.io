@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="english">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>  Exploring Wikipedia clickstream data, part 2  Arina Igumenshcheva
+</title>
+  <link rel="canonical" href="http://33eyes.github.io/drafts/2018-4-20-Wikipedia-clickstream-2.html">
+
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!--  <link rel="stylesheet" href="http://33eyes.github.io/theme/css/font-awesome.min.css">
+-->
+  <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+  
+  <link rel="stylesheet" href="http://33eyes.github.io/theme/css/pygments/monokai.min.css">
+  <link rel="stylesheet" href="http://33eyes.github.io/theme/css/theme.css">
+
+  <link rel="alternate" type="application/atom+xml" title="Full Atom Feed"
+        href="http://33eyes.github.io/feeds/all.atom.xml">
+  <link rel="alternate" type="application/atom+xml" title="Categories Atom Feed"
+        href="http://33eyes.github.io/feeds/projects.atom.xml">  
+  <meta name="description" content="In the previous blog post, I've covered what Wikipedia clickstream data is, why we may want to explore it using network analysis, and how to load that data into a neo4j database. Here's a brief recap: Wikipedia clickstream data is data about which Wikipedia articles the users visit, and how …">
+
+
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+<div class="row">
+  <div class="col-sm-12">
+	<div class="row">
+		<div class="col-sm-5">
+			<h1 class="title"><a href="http://33eyes.github.io/">Arina Igumenshcheva</a></h1>
+		</div>
+		<div class="col-sm-2 text-center">
+			  <ul class="list-inline">
+				  <li class="list-inline-item"><a href="https://github.com/33eyes" target="_blank"><i class="fab fa-github-square fa-2x"></i></a></li>
+				  <li class="list-inline-item"><a href="https://www.linkedin.com/in/arina-i/" target="_blank"><i class="fab fa-linkedin fa-2x"></i></a></li>
+		</div>
+		<div class="col-sm-5 header-right">
+			  <ul class="list-inline nav-menu-custom">
+				  <li class="list-inline-item">
+					<a href="/" class="nav-link-custom">blog</a>
+				  </li>
+				  <li class="list-inline-item">
+					<a href="/category/projects.html" class="nav-link-custom">projects</a>
+				  </li>
+				  <li class="list-inline-item">
+					<a href="/category/tutorials.html" class="nav-link-custom">tutorials</a>
+				  </li>
+				  <li class="list-inline-item">
+					<a href="https://gist.github.com/33eyes" class="nav-link-custom">gists</a>
+				  </li>
+				  <li class="list-inline-item">
+					<a href="/author/arina-igumenshcheva.html" class="nav-link-custom">about</a>
+				  </li>
+			  </ul>
+		
+		</div>
+	</div>
+	<div class="row subtitle-row">
+		<div class="col-sm-12">
+			  <p class="text-muted">There's a 92% chance that this is a blog about data science.</p>
+		</div>
+	</div>
+  </div>
+</div>    </div>
+  </header>
+
+  <div class="main">
+    <div class="container">
+      <h1>  Exploring Wikipedia clickstream data, part 2
+</h1>
+      <hr>
+  <article class="article">
+    <header>
+      <ul class="list-inline text-muted">
+        <li class="list-inline-item" title="2018-04-20T10:20:00-04:00">
+          <i class="far fa-calendar-alt"></i>
+          Fri 20 April 2018
+        </li>
+        <li class="list-inline-item">
+          <i class="far fa-folder"></i>
+          <a href="http://33eyes.github.io/category/projects.html">Projects</a>
+        </li>
+          <li class="list-inline-item">
+            <i class="fas fa-hashtag"></i>
+              <a href="http://33eyes.github.io/tag/graph-databases.html">#graph-databases</a>,               <a href="http://33eyes.github.io/tag/neo4j.html">#neo4j</a>,               <a href="http://33eyes.github.io/tag/cypher.html">#Cypher</a>,               <a href="http://33eyes.github.io/tag/clickstream.html">#clickstream</a>,               <a href="http://33eyes.github.io/tag/etl.html">#ETL</a>,               <a href="http://33eyes.github.io/tag/network-analysis.html">#network-analysis</a>,               <a href="http://33eyes.github.io/tag/python.html">#Python</a>          </li>
+      </ul>
+    </header>
+    <div class="content">
+      <p>In the <a href="http://www.arigu.me/2018-4-16-Wikipedia-clickstream-1.html">previous blog post</a>, I've covered what Wikipedia clickstream data is, why we may want to explore it using network analysis, and how to load that data into a neo4j database. Here's a brief recap:  </p>
+<ul>
+<li>Wikipedia clickstream data is data about which Wikipedia articles the users visit, and how they get to Wikipedia. This data is at aggregate level across users per website-to-article hop.</li>
+<li>The data I am using for this project is the March 2018 Wikipedia clickstream data release. This means that my dataset contains data on how the users traversed Wikipedia during March 2018.</li>
+<li>Wikipedia articles have lots of links to other articles, so the Wikipedia clickstream data is highly interconnected. These connections are best modeled and explored as a graph, and for this purpose we've loaded the data into the neo4j graph database.</li>
+<li>The March 2018 Wikipedia clickstream data release provides separate datasets for 11 Wikipedia language domains. These language domains are separate Wikipedia projects, and their data is not interlinked article-to-article in the data release. As a result, we have loaded the data for each language domain as a separate graph.</li>
+</ul>
+<p>In this post, I will simply describe and compare the Wikipedia clickstream data graphs across 11 language domains. Further analyses will be continued in the next post.</p>
+<h1>Network properties</h1>
+<p>Network properties are certain graph attributes that can be calculated to get a sense of the structure of the network. These properties can be used to compare networks to each other and to graph models.  </p>
+<h2>Webpage-to-article clickstream graph</h2>
+<p>First, lets take a look at the entire data that we have loaded into separate graphs per language domains. This data includes both Article nodes and ExternalSource nodes. ExternalSource nodes are just categories of external webpages from which users came to Wikipedia articles, and they tend to be connected to lots of articles.  </p>
+<h3>Graph size</h3>
+<p>Graph size is the number of nodes and/or edges in a network. In the webpage-to-article graph, we have two kinds of nodes: Articles and ExternalSources. Each language domain graph has 5 ExternalSource nodes, and we can calculate the counts of Article nodes and all edges in the graph.  </p>
+<table>
+<thead>
+<tr>
+<th>language domain</th>
+<th>articles count</th>
+<th>external sources count</th>
+<th>edges count</th>
+<th>references count</th>
+<th>average references per edge</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>English (EN)</td>
+<td>4,636,312</td>
+<td>5</td>
+<td>25,917,378</td>
+<td>7,209,691,324</td>
+<td>278.18</td>
+</tr>
+<tr>
+<td>Russian (RU)</td>
+<td>1,310,230</td>
+<td>5</td>
+<td>2,712,051</td>
+<td>704,827,086</td>
+<td>259.89</td>
+</tr>
+<tr>
+<td>German (DE)</td>
+<td>1,307,048</td>
+<td>5</td>
+<td>5,305,000</td>
+<td>775,318,583</td>
+<td>146.15</td>
+</tr>
+<tr>
+<td>French (FR)</td>
+<td>1,018,507</td>
+<td>5</td>
+<td>3,545,691</td>
+<td>584,620,558</td>
+<td>164.88</td>
+</tr>
+<tr>
+<td>Japanese (JA)</td>
+<td>880,747</td>
+<td>5</td>
+<td>2,295,941</td>
+<td>765,429,220</td>
+<td>333.38</td>
+</tr>
+<tr>
+<td>Spanish (ES)</td>
+<td>802,360</td>
+<td>5</td>
+<td>3,409,055</td>
+<td>915,554,698</td>
+<td>268.57</td>
+</tr>
+<tr>
+<td>Italian (IT)</td>
+<td>698,313</td>
+<td>5</td>
+<td>2,919,343</td>
+<td>476,970,761</td>
+<td>163.38</td>
+</tr>
+<tr>
+<td>Portuguese (PT)</td>
+<td>523,616</td>
+<td>5</td>
+<td>1,773,920</td>
+<td>315,514,276</td>
+<td>177.86</td>
+</tr>
+<tr>
+<td>Chinese (ZH)</td>
+<td>497,074</td>
+<td>5</td>
+<td>1,238,296</td>
+<td>291,813,076</td>
+<td>235.66</td>
+</tr>
+<tr>
+<td>Polish (PL)</td>
+<td>493,158</td>
+<td>5</td>
+<td>1,556,704</td>
+<td>202,264,461</td>
+<td>129.93</td>
+</tr>
+<tr>
+<td>Persian (FA)</td>
+<td>170,187</td>
+<td>5</td>
+<td>375,565</td>
+<td>74,059,745</td>
+<td>197.20</td>
+</tr>
+</tbody>
+</table>
+<p>In the graph size summary table above, we can see that the English language domain Wikipedia clickstream graph is the largest, with the highest counts of nodes and edges traversed in March 2018. This makes sense, since the English Wikipedia was the first Wikipedia project, and a large proportion of users browse the web using English.  </p>
+<p>Plotting the language domain graph sizes measured by article count, we can see the dramatic difference between the English domain Wikipedia and all other language domains. The English domain Wikipedia users browsed through 4.6 million articles in March 2018. Russian and German domain Wikipedia users have browsed 1.3 million articles each, followed by French, Japanese, Spanish and Italian domain users who have browsed in the 0.7 to 1 million articles range each, followed by Portuguese, Chinese and Polish domain Wikipedia browsing of about half a million articles each. After that, there's another proportionally large drop off in articles browsed in the Persian domain Wikipedia, followed by all other language domain Wikipedias not listed here, since we only have the clickstream data for the largest 11 language domains.  </p>
+<div class="centered">
+<h5><strong>Webpage-to-article clickstream graph sizes by language domain</strong></h5>
+</div>
+<div class="centered">
+<p><img alt="barchart" src="http://33eyes.github.io/images/w2a_graph_size_barchart.png"></p>
+</div>
+<p><br></p>
+<p>If we look at the counts of edges as an additional measure of graph sizes, we see a very similar pattern overall, with the exception of Russian and Japanese language domains, which seem to have relatively low edge counts given their article counts, compared to other language domains. <br>
+<div class="centered" markdown="1"></p>
+<h5><strong>Webpage-to-article clickstream graph edge counts by language domain</strong></h5>
+<p></div>
+<div class="centered" markdown="1">
+<img alt="barchart" src="http://33eyes.github.io/images/w2a_graph_edges_count_barchart.png">
+</div></p>
+<p>Edges connect Wikipedia article nodes, and the number of all possible directed edges in a graph is <strong>N(N-1)</strong>, where <strong>N</strong> is the number of nodes. The more article nodes we have in a graph, the more edges we can have. But different user clickstream behaviors can result in graph structures with higher or lower actual edge counts relative to the number of all possible edges. So the relative dips in edge counts may suggest structural differences in graphs and underlying user clickstream behaviors.<br>
+<br></p>
+<p>Now let's take a look at the distribution of references across the 11 language domains. References here are the individual hops by users from a webpage (an external website or a Wikipedia article) to a Wikipedia article, and their counts are the weights on the edges of our 11 weighted graphs. Again, we'd expect there to be more references in the language domain graphs that have more edges.</p>
+<div class="centered">
+<h5><strong>Webpage-to-article clickstream reference counts by language domain</strong></h5>
+</div>
+<div class="centered">
+<p><img alt="barchart" src="http://33eyes.github.io/images/w2a_graph_references_count_barchart.png"></p>
+</div>
+<p>As expected, the references count for English domain Wikipedia is much greater than for the other language domains. But if we look at the next top 5 language domains by reference count, they are all approximately in 600-900 million references range, with Spanish Wikipedia having the 2nd highest references count of 916 million. This is surprisingly uniform considering the vast difference in the edge counts among those 5 language domains. For example, the users of German and Russian Wikipedias browsed about the same number of articles, and they did about the same number of hops from websites to articles, shown by the reference counts. But the number of edges representing the clickstreams connecting those visited articles is about 2.7 million in Russian language domain, compared to 5.3 million in German language domain. This suggests that the users in the Russian language domain tended to take the same paths when browsing Wikipedia, while German language domain users took more diverse paths. This difference between German and Russian language domain clickstreams is also reflected in the average number of references per edge, as shown in the bar chart below.
+<div class="centered" markdown="1"></p>
+<h5><strong>Webpage-to-article clickstream average references per edge by language domain</strong></h5>
+<p></div>
+<div class="centered" markdown="1">
+<img alt="barchart" src="http://33eyes.github.io/images/w2a_graph_avg_references_per_edge_barchart.png">
+</div>
+This is the first bar chart in this post where the English domain Wikipedia does not tower over the other language domains. In fact, the Japanese language domain Wikipedia takes the cake here with an average of 333 references per edge, followed by English, Russian, Spanish and Chinese Wikipedias hanging around 250 references per edge, followed by Persian Wikipedia at about 200 references per edge, and the remaining language domains at about 150 references per edge.  </p>
+<p>This lack of a clear pattern is interesting, because if we assume that people tend to browse large and well established Wikipedias more than others, we might expect higher traffic per edge in the larger language domain Wikipedias. On the other hand, if we assume that people browse approximately proportionally for about the same topics across the language domains, we might expect a more uniform distribution. These patterns are just extreme examples, and neither one of them shows up in the data. We will explore these differences further when we examine the reference distributions individually for each of the language domains.  </p>
+<p>Overall, we can see that the larger clickstream traffic is associated with larger Wikipedias in the scatterplot below, although it's not a perfect association and we only have 11 language domains to observe.
+<div class="centered" markdown="1"></p>
+<h5><strong>Webpage-to-article clickstream references vs graph size</strong></h5>
+<p></div>
+<div class="centered" markdown="1">
+<img alt="barchart" src="http://33eyes.github.io/images/w2a_references_vs_articles_scatterplot.png">
+</div>
+<br></p>
+<p>And if we compare average references per edge to Wikipedia sizes, once again we see no clear relationship.
+<div class="centered" markdown="1"></p>
+<h5><strong>Webpage-to-article clickstream average references per edge vs graph size</strong></h5>
+<p></div>
+<div class="centered" markdown="1">
+<img alt="barchart" src="http://33eyes.github.io/images/w2a_avg_references_per_edge_vs_articles_scatterplot.png">
+</div>
+<br></p>
+<p>Looking at graph sizes is the first step in network analysis, and already we can see lots of differences across Wikipedia language domains that would be interesting to investigate further. Before we do that, let's put our Wikipedia clickstream data into some context. The Wikipedia clickstream graph sizes we've seen above cover only the parts of Wikipedia language domains browsed by users in March 2018. Taking a look at how the Wikipedia clickstream graph sizes compare to the entire Wikipedias can tell us how heavily those Wikipedias were utilized in March 2018.</p>
+<h2>Comparing our Wikipedia clickstream data to the entire Wikipedia</h2>
+<h2>External source webpages</h2>
+<h2>Article-to-article subgraph</h2>
+<h1>Next steps</h1>
+<ul>
+<li>Hypotheses testing</li>
+</ul>
+<h1>Reference</h1>
+<h2>Wikipedia clickstream data</h2>
+<ul>
+<li>Data source/download: <a href="https://dumps.wikimedia.org/other/clickstream/">Wikipedia clickstream data dumps</a></li>
+<li>Data description: <a href="https://meta.wikimedia.org/wiki/Research:Wikipedia_clickstream">Research:Wikipedia clickstream</a></li>
+<li>The data is released and maintained by the Wikimedia Foundation's <a href="https://wikitech.wikimedia.org/wiki/Analytics">Analytics Engineering team</a></li>
+</ul>
+<h2>Neo4j graph database</h2>
+<ul>
+<li><a href="https://neo4j.com/developer/graph-database/">What is a graph database?</a></li>
+<li><a href="https://neo4j.com/download/">Download</a></li>
+<li><a href="https://neo4j.com/developer/guide-neo4j-browser/">Intro to neo4j's browser</a></li>
+<li><a href="https://neo4j.com/docs/">Documentation</a></li>
+<li><a href="https://nicolewhite.github.io/neo4j-jupyter/hello-world.html">Nicole White's Hello-World with jupyter and py2neo</a></li>
+<li><a href="https://neo4j.com/docs/developer-manual/current/cypher/">Cypher documentation</a>  </li>
+<li><a href="https://neo4j.com/developer/guide-data-modeling/">Guide to graph data modeling</a></li>
+</ul>
+<h2>This project</h2>
+<ul>
+<li><a href="https://github.com/33eyes/wiki-clickstream-graph">GitHub repo</a></li>
+<li><a href="https://github.com/33eyes/wiki-clickstream-graph/blob/master/00_import_data_into_neo4j.ipynb">Data import jupyter notebook</a></li>
+</ul>
+    </div>
+  </article>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+<div class="row">
+  <ul class="col-sm-6 list-inline">
+    <li class="list-inline-item"><a href="http://33eyes.github.io/archives.html">Archives</a></li>
+    <li class="list-inline-item"><a href="http://33eyes.github.io/categories.html">Categories</a></li>
+      <li class="list-inline-item"><a href="http://33eyes.github.io/tags.html">Tags</a></li>
+  </ul>
+  <p class="col-sm-6 text-sm-right text-muted">
+    Generated by <a href="https://github.com/getpelican/pelican" target="_blank">Pelican</a>
+    / <a href="https://github.com/nairobilug/pelican-alchemy" target="_blank">&#x2728;</a>
+  </p>
+</div>    </div>
+  </footer>
+  
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>
