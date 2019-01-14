@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on Arina Igumenshcheva</title>
+    <link>http://33eyes.github.io/tags/python/</link>
+    <description>Recent content in Python on Arina Igumenshcheva</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 16 Apr 2018 10:20:00 -0500</lastBuildDate>
+    
+	<atom:link href="http://33eyes.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Exploring Wikipedia clickstream</title>
+      <link>http://33eyes.github.io/posts/wiki-project-part-1/</link>
+      <pubDate>Mon, 16 Apr 2018 10:20:00 -0500</pubDate>
+      
+      <guid>http://33eyes.github.io/posts/wiki-project-part-1/</guid>
+      <description>Whenever I want to learn about something, I google it, and sooner or later I end up on Wikipedia. And so do millions of other people, in many different languages. Wikipedia is a vast repository of knowledge organized into interlinked articles, and there are lots of ways to navigate through it as we learn. Whenever we browse Wikipedia, we learn and gather information, so perhaps our browsing behavior tendencies on Wikipedia can tell us something about how we learn on the internet.</description>
+    </item>
+    
+  </channel>
+</rss>

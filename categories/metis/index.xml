@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Metis on Arina Igumenshcheva</title>
+    <link>http://33eyes.github.io/categories/metis/</link>
+    <description>Recent content in Metis on Arina Igumenshcheva</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 15 Jan 2018 10:20:52 -0500</lastBuildDate>
+    
+	<atom:link href="http://33eyes.github.io/categories/metis/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>First week at Metis</title>
+      <link>http://33eyes.github.io/posts/first-week-at-metis/</link>
+      <pubDate>Mon, 15 Jan 2018 10:20:52 -0500</pubDate>
+      
+      <guid>http://33eyes.github.io/posts/first-week-at-metis/</guid>
+      <description>My first week at Metis has just breezed by. While I am not new to data analytics and statistics, I am new to data science and Python. For me, this past week has been a mix of a few things old and familiar, and a lot of things new and surprising. We&amp;rsquo;ve covered lots of introductory grounds on Git and GitHub, pair programming, Pandas, complexity, Matplotlib, command line basics, Seaborn, and, of course, many more Python topics.</description>
+    </item>
+    
+  </channel>
+</rss>

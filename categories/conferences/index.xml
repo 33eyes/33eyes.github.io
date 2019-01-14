@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Conferences on Arina Igumenshcheva</title>
+    <link>http://33eyes.github.io/categories/conferences/</link>
+    <description>Recent content in Conferences on Arina Igumenshcheva</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 20 Oct 2018 12:19:52 -0500</lastBuildDate>
+    
+	<atom:link href="http://33eyes.github.io/categories/conferences/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>GraphConnect NYC 2018</title>
+      <link>http://33eyes.github.io/posts/graphconnect-nyc-2018/</link>
+      <pubDate>Sat, 20 Oct 2018 12:19:52 -0500</pubDate>
+      
+      <guid>http://33eyes.github.io/posts/graphconnect-nyc-2018/</guid>
+      <description>About a month ago, I&amp;rsquo;ve attended the GraphConnect conference in NYC. I had a great time at the conference, and thought I&amp;rsquo;d share my experience, along with a brief intro to graph concepts and technologies.
+About the conference Day 1: Sessions  Keynote speeches Talks about applications of graph databases and graph analytics across a wide gamut of industries, including:  Fraud detection Healthcare IT Medical and scientific research Web development AI and ML GDPR compliance Master data management Identity and access management HR Finance And anything that relies on recommender engines  Neo4j-led sessions covering product features, use cases and new releases  2018 update highlights:  Neo4j Bloom: a visual graph exploration application Spatial features in Neo4j Temporal date types Graph algorithms library An updated APOC library Neo4j Morpheus: combines graph and relational table functionalities into one application   2018 Graphie Awards: a recognition of companies and graph community members for their contributions to the graph tech community</description>
+    </item>
+    
+  </channel>
+</rss>
