@@ -3,13 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://33eyes.github.io/posts/graphconnect-nyc-2018/</loc>
-    <lastmod>2018-10-20T12:19:52-05:00</lastmod>
+    <loc>http://33eyes.github.io/posts/analyzing-our-collective-wikipedia-browsing-history/</loc>
+    <lastmod>2019-03-24T15:15:28-04:00</lastmod>
   </url>
   
   <url>
-    <loc>http://33eyes.github.io/posts/wiki-project-part-1/</loc>
-    <lastmod>2018-04-16T10:20:00-05:00</lastmod>
+    <loc>http://33eyes.github.io/posts/graphconnect-nyc-2018/</loc>
+    <lastmod>2018-10-20T12:19:52-05:00</lastmod>
   </url>
   
   <url>
@@ -18,12 +18,24 @@
   </url>
   
   <url>
+    <loc>http://33eyes.github.io/visualizations/analyzing-our-collective-wikipedia-browsing-history-viz-1/</loc>
+  </url>
+  
+  <url>
+    <loc>http://33eyes.github.io/visualizations/analyzing-our-collective-wikipedia-browsing-history-viz-2/</loc>
+  </url>
+  
+  <url>
+    <loc>http://33eyes.github.io/visualizations/analyzing-our-collective-wikipedia-browsing-history-viz-3/</loc>
+  </url>
+  
+  <url>
     <loc>http://33eyes.github.io/about/</loc>
   </url>
   
   <url>
     <loc>http://33eyes.github.io/</loc>
-    <lastmod>2018-10-20T12:19:52-05:00</lastmod>
+    <lastmod>2019-03-24T15:15:28-04:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -46,7 +58,7 @@
   
   <url>
     <loc>http://33eyes.github.io/tags/clickstream/</loc>
-    <lastmod>2018-04-16T10:20:00-05:00</lastmod>
+    <lastmod>2019-03-24T15:15:28-04:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -63,14 +75,20 @@
   </url>
   
   <url>
-    <loc>http://33eyes.github.io/tags/etl/</loc>
-    <lastmod>2018-04-16T10:20:00-05:00</lastmod>
+    <loc>http://33eyes.github.io/tags/d3/</loc>
+    <lastmod>2019-03-24T15:15:28-04:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://33eyes.github.io/tags/graph-databases/</loc>
-    <lastmod>2018-10-20T12:19:52-05:00</lastmod>
+    <lastmod>2019-03-24T15:15:28-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://33eyes.github.io/tags/graphs/</loc>
+    <lastmod>2019-03-24T15:15:28-04:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -82,36 +100,53 @@
   
   <url>
     <loc>http://33eyes.github.io/tags/neo4j/</loc>
-    <lastmod>2018-10-20T12:19:52-05:00</lastmod>
+    <lastmod>2019-03-24T15:15:28-04:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://33eyes.github.io/tags/network-analysis/</loc>
-    <lastmod>2018-10-20T12:19:52-05:00</lastmod>
+    <lastmod>2019-03-24T15:15:28-04:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://33eyes.github.io/posts/</loc>
-    <lastmod>2018-10-20T12:19:52-05:00</lastmod>
+    <lastmod>2019-03-24T15:15:28-04:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://33eyes.github.io/categories/projects/</loc>
-    <lastmod>2018-04-16T10:20:00-05:00</lastmod>
+    <lastmod>2019-03-24T15:15:28-04:00</lastmod>
   </url>
   
   <url>
     <loc>http://33eyes.github.io/tags/python/</loc>
-    <lastmod>2018-04-16T10:20:00-05:00</lastmod>
+    <lastmod>2019-03-24T15:15:28-04:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://33eyes.github.io/tags/</loc>
     <lastmod>2018-01-15T10:20:52-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://33eyes.github.io/tags/vis.js/</loc>
+    <lastmod>2019-03-24T15:15:28-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://33eyes.github.io/tags/visualization/</loc>
+    <lastmod>2019-03-24T15:15:28-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://33eyes.github.io/visualizations/</loc>
     <priority>0</priority>
   </url>
   

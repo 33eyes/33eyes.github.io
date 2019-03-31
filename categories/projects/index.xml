@@ -6,18 +6,19 @@
     <description>Recent content in Projects on Arina Igumenshcheva</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 16 Apr 2018 10:20:00 -0500</lastBuildDate>
+    <lastBuildDate>Sun, 24 Mar 2019 15:15:28 -0400</lastBuildDate>
     
 	<atom:link href="http://33eyes.github.io/categories/projects/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Exploring Wikipedia clickstream</title>
-      <link>http://33eyes.github.io/posts/wiki-project-part-1/</link>
-      <pubDate>Mon, 16 Apr 2018 10:20:00 -0500</pubDate>
+      <title>Analyzing our collective Wikipedia browsing history</title>
+      <link>http://33eyes.github.io/posts/analyzing-our-collective-wikipedia-browsing-history/</link>
+      <pubDate>Sun, 24 Mar 2019 15:15:28 -0400</pubDate>
       
-      <guid>http://33eyes.github.io/posts/wiki-project-part-1/</guid>
-      <description>Whenever I want to learn about something, I google it, and sooner or later I end up on Wikipedia. And so do millions of other people, in many different languages. Wikipedia is a vast repository of knowledge organized into interlinked articles, and there are lots of ways to navigate through it as we learn. Whenever we browse Wikipedia, we learn and gather information, so perhaps our browsing behavior tendencies on Wikipedia can tell us something about how we learn on the internet.</description>
+      <guid>http://33eyes.github.io/posts/analyzing-our-collective-wikipedia-browsing-history/</guid>
+      <description>Since November 2017, Wikipedia has been regularly releasing monthly clickstream datasets that capture summarized page-to-page user visits to Wikipedia articles. This clickstream data is a record of how we browse Wikipedia.
+The Wikipedia clickstream datasets consist of aggregated records of clickstream events. A clickstream event occurs when a user goes from one webpage to another. In the data, it is logged as a data row containing the source webpage, called a referer, the destination webpage, called a resource, the type of the reference, and the total count of times users went from the referer to the reference in a given month.</description>
     </item>
     
   </channel>

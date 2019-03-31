@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>
+				Analyzing our collective Wikipedia browsing history &middot; Arina Igumenshcheva
+		</title>
+
+
+		
+  		<link rel="stylesheet" href="/css/style.css">
+
+		
+		<link rel="stylesheet" href="http://33eyes.github.io/css/custom.css">
+
+		
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+
+		
+		<script src="https://unpkg.com/feather-icons"></script>
+
+		
+		<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+		
+		<link href="" rel="alternate" type="application/rss+xml" title="Arina Igumenshcheva" />
+	</head>
+
+    <body>
+        		<nav class="nav">
+			<div class="nav-container">
+				<a href="/">
+					<h2 class="nav-title">Arina Igumenshcheva</h2>
+				</a>
+				<ul>
+  <li><a href="/">blog</a></li>
+  <li><a href="/categories/projects">projects</a></li>
+    <li><a href="/about">about</a></li>
+</ul>
+
+			</div>
+		</nav>
+
+        
+
+<main>
+	<div class="post">
+		<div class="post-info">
+        <br>
+        <time datetime="2019-03-24 15:15:28 -0400 EDT">March 24, 2019</time>
+</div>
+
+		<h1 class="post-title">Analyzing our collective Wikipedia browsing history</h1>
+<div class="post-line"></div>
+
+		
+
+		
+
+<p>Since November 2017, Wikipedia has been regularly releasing monthly clickstream datasets that capture summarized page-to-page user visits to Wikipedia articles. This clickstream data is a record of how we browse Wikipedia.</p>
+
+<p>The Wikipedia clickstream datasets consist of aggregated records of clickstream events. A clickstream event occurs when a user goes from one webpage to another. In the data, it is logged as a data row containing the source webpage, called a referer, the destination webpage, called a resource, the type of the reference, and the total count of times users went from the referer to the reference in a given month.</p>
+
+<p>To maintain user privacy, the clickstream events are added up across all users for the given month, and those of them that add up to less than 10 are dropped from the datasets. This means that there is no individual user information in this data, and that clickstream events that are so rare that they could potentially uniquely identify users have been removed. In addition, the publishers of the data do their best to filter any known spider traffic out of it.</p>
+
+<p>Here are a couple of sample Wikipedia clickstream data rows:</p>
+
+<table>
+  <tr>
+    <th>referer</th>
+    <th>resource</th>
+    <th>reference type</th>
+    <th>count</th>
+  </tr>
+  <tr>
+    <td><a href="https://en.wikipedia.org/wiki/Suki_Waterhouse">Suki_Waterhouse</a></td>
+    <td><a href="https://en.wikipedia.org/wiki/List_of_Divergent_characters">List_of_Divergent_characters</a></td>
+    <td>link</td>
+    <td>86</td>
+  </tr>
+  <tr>
+    <td>other-internal</td>
+    <td><a href="https://en.wikipedia.org/wiki/Bureau_of_Investigative_Journalism">Bureau_of_Investigative_Journalism</a></td>
+    <td>external</td>
+    <td>18</td>
+  </tr>
+</table>
+
+<p>Note that we can only see the exact webpages of Wikipedia articles in the data. Pages that are not Wikipedia articles are recorded as general categories, like the referer in the second sample data row above.</p>
+
+<p>The resulting clickstream data is an anonymized version of our collective browsing history on Wikipedia, released in monthly batches. We can use data science techniques to explore what&rsquo;s in it.</p>
+
+<p>So, let&rsquo;s see what we&rsquo;ve been up to on Wikipedia in December 2018.</p>
+
+<blockquote>
+<p>Why December 2018? These monthly clickstream datasets are quite large and can take a long time to process, so for practical purposes, we&rsquo;ll analyze just one month&rsquo;s worth of the data. I&rsquo;ve picked December 2018 because it was the most recent month available when I started working on this side project, but the same analyses can be done on any of the available English Wikipedia datasets (and with adjustments for language differences, for the several non-English language Wikipedia clickstream datasets available).</p>
+</blockquote>
+
+<h2 id="what-did-we-do-on-wikipedia">What did we do on Wikipedia?</h2>
+
+<p>There are 6.88 billion clickstream events in the Wikipedia clickstream data for December 2018, reaching about 5.2 million unique Wikipedia articles, or about 90% of the 5.8 million Wikipedia articles in existence at the time. The clickstream data has been cut off to a traffic minimum of 10, so each of those 5.2 million articles was visited at least 10 times, and the 6.88 billion clickstream events in the dataset make up about 90% of the total 7.67 billion clickstream events to English Wikipedia in December 2018 (<a href="https://stats.wikimedia.org/v2/#/en.wikipedia.org/reading/total-page-views/normal|table|2017-03-01~2019-03-01|~total">source</a>).</p>
+
+<p>To see where much of this traffic went, we can check Wikipedia&rsquo;s <a href="https://tools.wmflabs.org/topviews/?project=en.wikipedia.org&amp;platform=all-access&amp;date=2018-12&amp;excludes=">Topviews Analysis tool</a> for December 2018 top article views stats:</p>
+
+<p><img src="/images/topviews_analysis_tool_top10_dec2018.png" alt="Top 10 most viewed articles from the Topviews Analysis tool">
+<em>Source: <a href="https://tools.wmflabs.org/topviews/?project=en.wikipedia.org&amp;platform=all-access&amp;date=2018-12&amp;excludes=">Wikipedia&rsquo;s Topviews Analysis tool</a></em></p>
+
+<p>The top viewed Wikipedia articles in December 2018 were mostly about recently released movies and famous people. The #1 most viewed article was about <a href="https://en.wikipedia.org/wiki/George_H._W._Bush">George H. W. Bush</a>, who died on November 30, 2018.</p>
+
+<p>We can use the Wikipedia clickstream data to drill down further into our Wikipedia browsing history.
+If we split the Wikipedia article views by traffic type, we can roughly see how people got to the article pages.</p>
+
+<blockquote>
+<p>The visualization below is interactive. Click on a traffic type to see its stats.</p>
+
+<p>Note: the traffic counts here are slightly lower than those from Wikipedia’s Topviews Analysis tool. This difference is likely due to the traffic minimum cutoff.</p>
+</blockquote>
+
+<iframe id="viz1" style="margin-left: -24%;" type="text/html" width="1200" height="940" src="/visualizations/analyzing-our-collective-wikipedia-browsing-history-viz-1" allowfullscreen frameborder="0">
+</iframe>
+
+<p>The breakdown of Wikipedia article views by traffic type shows that about 40% of the time we got to Wikipedia articles from online search results, and it looks like we&rsquo;ve searched for nearly 60% of all English Wikipedia articles that were in existence as of December 2018. That&rsquo;s impressive, but not as impressive as the empty referer traffic, which has visited nearly 90% of the existing articles.</p>
+
+<p>Empty referer traffic could result from several scenarios, including entering the website URL into the browser address bar, opening a bookmarked webpage, setting a webpage as the browser&rsquo;s default page, various security measures, spiders and other automated browsing, etc. (see <a href="https://stackoverflow.com/questions/6880659/in-what-cases-will-http-referer-be-empty">this discussion on StackOverflow</a> for more details). About half a billion, or 27%, of the 1.8 billion empty referer traffic went to the Wikipedia <a href="https://en.wikipedia.org/wiki/Main_Page">Main Page</a> article, which seems like a good candidate for bookmarking, setting the page as browser default, or typing the page URL into the browser address bar. The rest of the empty referer traffic is thinly spread across the 90% of existing articles, with less than 1% of the empty referer traffic going to any one article. The wide reach of this remaining empty referer traffic is probably the result of automated article visits by spiders and bots.</p>
+
+<p>The next big chunk of our online traffic to Wikipedia articles comes from the Wikipedia articles themselves. About 25% of the December 2018 traffic to Wikipedia articles consisted of users clicking on a link in a Wikipedia article to go to another Wikipedia article. Another 0.9% of the traffic was from users going from one Wikipedia article to another, but with no link from the former to the latter. According to the Wikipedia clickstream data&rsquo;s <a href="https://meta.wikimedia.org/wiki/Research:Wikipedia_clickstream#Format">documentation</a>, this could happen when users search from a Wikipedia article&rsquo;s page, or if they spoof their referer. For simplicity, we&rsquo;ll assume that these clickstream events are internal searches from Wikipedia article pages. Putting the links traffic and internal searches together, we see that 25.9% of Wikipedia traffic in December 2018 happened because people went from one Wikipedia article to another and kept on reading.</p>
+
+<h2 id="where-did-we-go-when-we-kept-on-reading">Where did we go when we kept on reading?</h2>
+
+<p>Let&rsquo;s now focus on just the links and internal searches traffic.
+The data records for that traffic consist of article-to-article clickstream hops, and if we join them all together, we get a <a href="https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)">network (a.k.a. a graph)</a> of Wikipedia articles connected by the user traffic between them. We can then use <a href="https://en.wikipedia.org/wiki/Network_science#Network_analysis">graph/network analytics</a> to see if there are any interesting patterns in these article-to-article connections. This way we can explore how we browse Wikipedia and where we tend to go when we follow Wikipedia article links or search for more content to read.</p>
+
+<div class="flexbox-container">
+  <div class="img-col-half">
+    <img src="/images/en_1218_louvain_viz_1_copied_img2_small2.png" alt="Wikipdedia articles clickstream network">
+  </div>
+  <div class="img-col-half">
+    This is the article-to-article graph of our Wikipedia browsing history, trimmed down by excluding the articles and connections with low traffic volume because it was too large to visualize whole. The circles are Wikipedia articles, and the lines connecting them represent the article-to-article clickstream traffic. The graph looks like a hairball, which is <a href="http://www.ulib.iupui.edu/digitalscholarship/blog/networks-how-i-learned-stop-worrying-and-love-hairball">a technical term</a>.  
+
+    <blockquote>
+    <a href="https://upload.wikimedia.org/wikipedia/commons/4/46/English_Wikipedia_clickstream_communities_December_2018.png" target="_blank">Click here</a> for a higher resolution version of this graph visualization with article titles.  
+    </blockquote>
+  </div>
+</div>
+
+<p>The colors in the graph represent clusters of articles grouped by traffic connections.
+These article clusters were identified using the <a href="https://neo4j.com/docs/graph-algorithms/current/algorithms/louvain/">Louvain community detection algorithm in neo4j</a>, which has found 1,698 clusters. A group of articles forms such a cluster if the articles in this group have more and stronger connections among each other than with the rest of the network. The strength of these connections is measured by the amount of traffic going between the articles.</p>
+
+<p>The hairball graph visualization above does a great job at illustrating just how complex our browsing behaviors are, but it&rsquo;s very hard to see what&rsquo;s going on inside it. To clean up the hairball, we can group the article clusters, a.k.a. communities, into article community nodes, and sum up the article-to-article traffic into community-to-community traffic.</p>
+
+<p>In the
+<a href="https://upload.wikimedia.org/wikipedia/commons/4/46/English_Wikipedia_clickstream_communities_December_2018.png" target="_blank">high-res version of the article-to-article graph above</a>, we can look around an article community and get a sense of what it is about by reading the article titles. When grouping the article communities into community nodes, we lose that ability to see the individual article titles within a community, which makes it hard to tell what the article communities are about. To remedy that, we&rsquo;ll use natural language processing techniques to extract key terms from the article titles within communities. We can use a technique called <a href="https://en.wikipedia.org/wiki/Bag-of-words_model">bag-of-words</a> to extract the top 10 most frequent <a href="https://nlp.stanford.edu/IR-book/html/htmledition/stemming-and-lemmatization-1.html">lemmatized</a> words used in article titles within each community. These lists of top 10 words for each article community can give us a rough idea of what each community is about. We&rsquo;ll also use a technique called <a href="https://en.wikipedia.org/wiki/Named-entity_recognition">named entity recognition</a> to extract the top 5 named entities for each community. This will tell us whether an article community mostly contains articles about people, places, organizations, or something else.</p>
+
+<p>The result is the article community-to-community graph shown in the visualization below. It is still a hairball of sorts, but it is now much easier to navigate. And since the aggregated communities are less complex to visualize, we can display all 1,698 of them.</p>
+
+<blockquote>
+<p>The visualization below is interactive. Click the &ldquo;Show legend&rdquo; button for more information about the visualization notation. Zoom in, drag the article community nodes around, or click on one of them to see its community stats card.<br />
+At the bottom of each community stats card are listings of the top 5 most significant articles in the community, organized into tabs by the following metrics: top viewed articles, influencers and connectors. Click on the tabs to see them.</p>
+</blockquote>
+
+<p><iframe id="viz2" style="margin-left: -14%; margin-top: 1rem; margin-bottom: 1rem;" type="text/html" width="1000" height="700" src="/visualizations/analyzing-our-collective-wikipedia-browsing-history-viz-2" allowfullscreen frameborder="1">
+</iframe>
+<a href="/visualizations/analyzing-our-collective-wikipedia-browsing-history-viz-2" target="_blank">Click here for a full page version of this visualization.</a></p>
+
+<p>Visualizing our Wikipedia browsing history this way, we can see some patterns emerge.</p>
+
+<p>There are 7 major article communities that can be roughly described by the following topics:<br />
+<strong>Community id 3</strong>: current events, politics and famous people relevant to the United States<br />
+<strong>Community id 7</strong>: religion, literature, history and culture<br />
+<strong>Community id 4</strong>: movies, tv and actors<br />
+<strong>Community id 10</strong>: the United States<br />
+<strong>Community id 5</strong>: music, musicians and discographies<br />
+<strong>Community id 1</strong>: software and tech<br />
+<strong>Community id 2</strong>: health, biology and sexuality</p>
+
+<blockquote>
+<p>You can look up these article communities by plugging their ids into the search box in the visualization above.</p>
+</blockquote>
+
+<p>The 7 largest article communities above cover the topics one would expect to see, but if we take a look at the smaller communities, the topics get a bit more interesting. Towards the bottom of the graph visualization, we have a cluster of medium-sized communities, which seem to have lots of search traffic between each other. Many of them are focused on specific sports, hobbies and interests. For example, we&rsquo;ve got a wrestling/boxing community (id 15), a chess community (id 20), a Tolkien community (id 46), an Indian movies community (id 9), a trains community (id 0), and so on.
+And then we have a big cloud of very small article communities, where each focuses on a very narrow topic, like a specific book or event.</p>
+
+<p>An interesting feature of the topics of these article communities is that many of them are combinations of multiple themes, and many topic words span multiple communities. For example, while community 7 is a combination of religion, literature, history and culture, the topic terms related to literature are also spread out across many other article communities.</p>
+
+<p>To explore these community topic patterns a little further, we can search the article community topics for specific terms and highlight the communities that match.</p>
+
+<p>Let&rsquo;s start with everyone&rsquo;s favorite topic.</p>
+
+<h3 id="politics">Politics</h3>
+
+<div class="img-row">
+  <div class="img-col-half">
+    <img src="/images/comm_graph_highlights_13.png" alt="Community graph with highlights by topic terms">
+    <strong>Communities found: 202</strong>
+    <br>
+    <div class="topic-terms">
+      Topic terms selection:
+      <br>
+      politic || elect || govern || diplomat || presid || feder || parliament || mayor || gubernatori || senat
+    </div>
+  </div>
+  <div class="img-col-half">
+    Politics is a key topic in the largest article community in our Wikipedia browsing history network. But it is also present in the topic terms of many small and relatively isolated communities.  
+    <blockquote>
+      In this and subsequent visualizations, the pink highlights show article communities that matched the chosen topic terms.
+      <br><br>
+      <strong>WARNING:</strong> These highlights are meant to show how various topics spread and overlap across large and interconnected communities versus those that are relatively small and isolated. These highlights simply illustrate in broad strokes the complexity of topics we read about on Wikipedia.  
+      They are not meant to precisely show a topic term distribution. Doing so would call for a more in-depth NLP analysis and a more precise topic term matching. If a community is not highlighted for a particular topic term, it could still contain matching articles for that term, but they were not frequent enough to be part of the top 10 terms for that community.
+    </blockquote>
+    Many of the small politics-themed communities are about various past local elections around the world. Those of them located to the bottom left of the largest politics node are mainly about North American past local elections.
+  </div>
+</div>
+
+<p>The visualization above shows not the quantity of politics-themed articles read on Wikipedia, but rather the <strong>spread of the topic</strong> of politics across both a very large and highly interconnected article community and a multitude of very small and isolated communities.</p>
+
+<blockquote>
+<p>For a closer look at the highlighted article communities, <a href="/visualizations/analyzing-our-collective-wikipedia-browsing-history-viz-3" target="_blank">here is the interactive communities graph visualization with highlighting search</a>. To highlight the communities with political topics, copy the topic terms selection listed under the politics graph visualization above, and paste it into the highlighter prompt.</p>
+
+<p>You can also try highlighting your own topic terms in the graph. Just make sure to read the highlighter search prompt instructions.</p>
+</blockquote>
+
+<p><br><br></p>
+
+<p>Let&rsquo;s try highlighting a few more popular topic terms.</p>
+
+<h3 id="movies-vs-tv">Movies vs TV</h3>
+
+<div class="img-row">
+  <div class="img-col-third">
+    <h2>Movies</h2>
+    <img src="/images/comm_graph_highlights_3.png" alt="Community graph with highlights by topic terms">
+    <strong>Communities found: 90</strong>
+    <br>
+    <div class="topic-terms">
+      Topic terms selection: film
+      </div>
+  </div>
+  <div class="img-col-third">
+    <h2>TV</h2>
+    <img src="/images/comm_graph_highlights_4.png" alt="Community graph with highlights by topic terms">
+    <strong>Communities found: 37</strong>
+    <br>
+    <div class="topic-terms">
+      Topic terms selection: (tv && !(latvi)) || episod
+    </div>
+  </div>
+  <div class="img-col-third">
+    Unsurprisingly, movies and TV shows are very popular topics in the Wikipedia browsing history, with movies being much more popular than TV. The movies topic spans the 3 largest article communities, overlapping with topics about TV, books and politics. And there are lots of small article communities dedicated to specific movies, actors or TV series.
+    <br>
+    Notably, some ethnicities have their own movie/TV article communities: we've got an Indian movies/TV community (id 9), and a Chinese and South Korean movies/TV community (id 17).
+  </div>
+</div>
+
+<h3 id="music-and-books">Music and books</h3>
+
+<div class="img-row">
+  <div class="img-col-third">
+    <h2>Music</h2>
+    <img src="/images/comm_graph_highlights_5.png" alt="Community graph with highlights by topic terms">
+    <strong>Communities found: 147</strong>
+    <br>
+    <div class="topic-terms">
+      Topic terms selection:
+      <br>
+      music || song || singer || discograph
+    </div>
+  </div>
+  <div class="img-col-third">
+    <h2>Books</h2>
+    <img src="/images/comm_graph_highlights_2.png" alt="Community graph with highlights by topic terms">
+    <strong>Communities found: 121</strong>
+    <br>
+    <div class="topic-terms">
+      Topic terms selection:
+      <br>
+      novel || book || literatur || author || writer
+    </div>
+  </div>
+  <div class="img-col-third">
+    Again as expected, both music and literature are very popular topics. Each of them is a key topic in a large article community, and has many small niche article communities focused on individual musicians and novels, respectively.  
+    <br><br>
+    Compared to the movies topic, both music and literature appear to be a bit more niche. They are more spread out across the small and more isolated communities. And the large communities that have them as key topics are not as highly interconnected as the large movies-themed community.
+  </div>
+</div>
+
+<h3 id="sports">Sports</h3>
+
+<p>There are lots of sports-themed article communities of all sizes in our Wikipedia browsing history. The most popular sports topic in it is football, including both American football and soccer.
+It is very difficult to separate the two, since both can be called football. A somewhat successful attempt to separate them out is shown in the highlighted graphs below.</p>
+
+<div class="img-row">
+  <div class="img-col-third">
+    <h2>All sports</h2>
+    <img src="/images/comm_graph_highlights_9.png" alt="Community graph with highlights by topic terms">
+    <strong>Communities found: 85</strong>
+    <br>
+    <div class="topic-terms">
+      Topic terms selection:
+      <br>
+      sport || olympi || champion || athlet || team || swim || runn || footbal || soccer || basketbal || basebal || hockey || wrestl || tennis || golf || cricket || rugbi
+    </div>
+  </div>
+  <div class="img-col-third">
+    <h2>American football</h2>
+    <img src="/images/comm_graph_highlights_10.png" alt="Community graph with highlights by topic terms">
+    <strong>Communities found: 18</strong>
+    <br>
+    <div class="topic-terms">
+      Topic terms selection:
+      <br>
+      (footbal && team && !(nation)) || (footbal && (america || (unit && state) ))
+    </div>
+  </div>
+  <div class="img-col-third">
+    <h2>Soccer</h2>
+    <img src="/images/comm_graph_highlights_11.png" alt="Community graph with highlights by topic terms">
+    <strong>Communities found: 31</strong>
+    <br>
+    <div class="topic-terms">
+      Topic terms selection:
+      <br>
+      soccer || (associ && footbal) || futebol || (footbal && !( (footbal && team && !(nation)) || (footbal && (america || (unit && state) )) ) )
+    </div>
+  </div>
+</div>
+
+<h3 id="john-vs-mary-co">John vs Mary &amp; Co.</h3>
+
+<p>Looking through the article community topics, it&rsquo;s easy to notice that many of the top 10 topic words have the name John in them. The name John is probably not a trending topic all by itself. The most likely reason it shows up in the top 10 topic terms for so many communities is because these communities have articles about notable people, many of whom happen to be named John.</p>
+
+<p><br>
+<div class="img-row">
+  <div class="img-col-third">
+    <h2>Just John</h2>
+    <img src="/images/comm_graph_highlights_16.png" alt="Community graph with highlights by topic terms">
+    <strong>Communities found: 73</strong>
+    <br>
+    <div class="topic-terms">
+      Topic terms selection: john
+    </div>
+  </div>
+  <div class="img-col-third">
+    <h2>Mary, Maria, Anna, Anne, Elizabeth, etc.</h2>
+    <img src="/images/comm_graph_highlights_17.png" alt="Community graph with highlights by topic terms">
+    <strong>Communities found: 48</strong>
+    <br>
+    <div class="topic-terms">
+      Topic terms selection:
+      <br>
+      (mari &amp;&amp; !(mariag || marin)) || anna || (anne &amp;&amp; !(channel || branne || gannet)) || elizabeth
+    </div>
+  </div>
+  <div class="img-col-third">
+    If we highlight the communities that have &ldquo;John&rdquo; as one of their top topic terms, we can see that articles with &ldquo;John&rdquo; in their titles were read within many communities, including the 3 largest communities that focus on politics, movies and books. Each of these large communities contains about a quarter to a half a million articles. It takes a lot of article titles with the name John in them to get &ldquo;John&rdquo; to show up in the top 10 topic terms among these huge article communities.
+    <br>
+    For comparison, let&rsquo;s also highlight some popular female names. The highlighting on the left shows matches for Mary, Maria, Anna, Anne, Elizabeth, as well as any names that contain these names, i.e., Rosemary, Hannah and Annette are also included in that highlighting.
+  </div>
+</div></p>
+
+<p>These name distributions across the article communities illustrate the gender disparity in our Wikipedia browsing. This gender disparity is probably in large part due to the gender inequality of the underlying biographical content on Wikipedia. <a href="https://en.wikipedia.org/wiki/Gender_bias_on_Wikipedia">Gender bias</a> is a frequent criticism of Wikipedia, and finding evidence of it in the Wikipedia clickstream data is not surprising.</p>
+
+<p>In a <a href="https://epjdatascience.springeropen.com/articles/10.1140/epjds/s13688-016-0066-4">2016 paper by Wagner et al.</a>, the authors found evidence of a higher notability standard for articles about women on Wikipedia. This means that fewer women are considered notable enough to have a biographical Wikipedia article written about them. The authors also found structural differences between hyperlinks in articles about men and women. The paper points out that while some of these differences are due to historical and social contexts, others are attributable to Wikipedia editors.</p>
+
+<p>These biased differences in content and link structures of the articles are bound to constrain our browsing behaviors to reflect and further propagate the biases. But it is also probable that on top of the biases in the underlying content, we intentionally or unintentionally choose to read articles about men more often. If that&rsquo;s the case, then we may have a feedback loop, where articles that are about men get read more often, which leads to more edits, which leads to improved content and more hyperlinks, which leads to those articles being read more, and so on.</p>
+
+<p>The John vs Mary &amp; Co. name distributions above cannot tell us whether the gender differences we see in our Wikipedia browsing history are strictly due to the biases in the underlying content, or if our browsing choices are also responsible. But they suggest that the Wikipedia clickstream datasets can be useful for further research of gender biases on Wikipedia. It would be interesting to see what happens to the gender biases in our Wikipedia browsing history after we control for the biases in the underlying content.</p>
+
+<h2 id="summary-of-findings">Summary of findings</h2>
+
+<p>So, here&rsquo;s what we&rsquo;ve learned about our Wikipedia browsing history for December 2018.</p>
+
+<p>About 60% of the time we got to Wikipedia from search engine results, reaching nearly 60% of all English Wikipedia articles in existence at the time.
+And about 10% of the time we probably got to Wikipedia by following a bookmark to Wikipedia&rsquo;s main page, or something similar.
+It is hard to say anything definite about the remaining 30% of our traffic to Wikipedia in that month.</p>
+
+<p>After we got to Wikipedia, less than a third of the time we went on to read more articles, mostly by following links and occasionally by searching for more content.
+When we did keep on reading, our article browsing behaviors formed a complex hairball of a network, with some interesting patterns. Those patterns group the Wikipedia articles we&rsquo;ve visited into article communities, with discernible community topics and unique statistics.</p>
+
+<p>These article communities show that our browsing history had 7 main themes, roughly summed up as:<br />
+1) current events, politics and famous people relevant to the United States<br />
+2) religion, literature, history and culture<br />
+3) movies, tv and actors<br />
+4) the United States<br />
+5) music, musicians and discographies<br />
+6) software and tech<br />
+7) health, biology and sexuality</p>
+
+<p>Beyond the 7 main themes above, a few dozen smaller but still sizable article communities reveal more niche browsing interests, including various sports, mountaineering, trains, airplanes, Indian movies, Tolkien, chess, Eurovision, and so on. And a big cloud of tiny article communities, with each focusing on a very narrow topic, like a specific book, person or event, shows that our browsing history also contained many unique and somewhat isolated research efforts.</p>
+
+<p>An interesting feature of these article communities is that they&rsquo;ve formed around complex intersections and overlaps of topics, which can be seen when we search for common topic terms across all article communities.</p>
+
+<p>Unsurprisingly, while analyzing the Wikipedia clickstream data we&rsquo;ve accidentally stumbled upon gender bias captured by the data. According to our Wikipedia browsing history, in December 2018 we&rsquo;ve read a lot more articles about Johns than about Marys, Marias, Annas, Annes, Elizabeths, etc. combined.</p>
+
+<p>And that sums up what we&rsquo;ve been up to on Wikipedia in December 2018 according to our Wikipedia browsing history data.</p>
+
+<h2 id="reference">Reference</h2>
+
+<ul>
+<li>The Wikipedia clickstream datasets are available for download <a href="https://dumps.wikimedia.org/other/clickstream/">here</a>, along with their accompanying <a href="https://dumps.wikimedia.org/other/clickstream/readme.html">documentation</a><br /></li>
+<li>All data wrangling, analyses and visualizations code is available on github: <a href="https://github.com/33eyes/wiki-clickstream-graph">Wikipedia clickstream graph project</a><br /></li>
+</ul>
+
+
+		
+	</div>
+
+	<div class="pagination">
+		<a href="/posts/graphconnect-nyc-2018/" class="left arrow">&#8592;</a>
+
+		<a href="#" class="top">Top</a>
+	</div>
+</main>
+
+
+        		<footer>
+			<span>
+			&copy; <time datetime="2019-03-30 21:11:39.867471 -0400 EDT m=&#43;0.084154871">2019</time> Arina Igumenshcheva. Made with <a href='https://gohugo.io'>Hugo</a> using the <a href='https://github.com/EmielH/tale-hugo/'>Tale</a> theme.
+			</span>
+		</footer>
+
+    </body>
+</html>

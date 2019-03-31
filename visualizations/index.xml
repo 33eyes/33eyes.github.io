@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Visualizations on Arina Igumenshcheva</title>
+    <link>http://33eyes.github.io/visualizations/</link>
+    <description>Recent content in Visualizations on Arina Igumenshcheva</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="http://33eyes.github.io/visualizations/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>http://33eyes.github.io/visualizations/analyzing-our-collective-wikipedia-browsing-history-viz-1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://33eyes.github.io/visualizations/analyzing-our-collective-wikipedia-browsing-history-viz-1/</guid>
+      <description>Wikipedia clickstream traffic breakdown by type   Wikipedia clickstream traffic breakdown by type    Search engines traffic to Wikipedia Clickstream event: A user came from a search engine page to a Wikipedia article page.
+ Empty referer traffic to Wikipedia Clickstream event: An empty referer to a Wikipedia article page. This could be the result of a browser homepage setting, a security measure, a bot, etc. (source)</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://33eyes.github.io/visualizations/analyzing-our-collective-wikipedia-browsing-history-viz-2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://33eyes.github.io/visualizations/analyzing-our-collective-wikipedia-browsing-history-viz-2/</guid>
+      <description>Wikipedia clickstream communities network   Show legend Community id lookup:
+   Wikipedia clickstream communities network for December 2018  Circles: Wikipedia article communities  Size: community size Shade: relative community density   : more interconnected community  : less interconnected community   Hover text: Lemmatized? community topic words Click on a community circle to learn more about it!  Lines: article-to-article online traffic  Width: traffic volume Color: traffic type   : traffic along article links  : traffic along internal searches   Tip: to get a better view of connecting lines, zoom into the graph or drag community circles away from the main cluster.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://33eyes.github.io/visualizations/analyzing-our-collective-wikipedia-browsing-history-viz-3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://33eyes.github.io/visualizations/analyzing-our-collective-wikipedia-browsing-history-viz-3/</guid>
+      <description>Wikipedia clickstream communities network   Show legend Community id lookup:
+  Topic terms selected:  | communities found:   Reload  Wikipedia clickstream communities network for December 2018  Circles: Wikipedia article communities  Size: community size Shade: relative community density   : more interconnected community  : less interconnected community   Hover text: Lemmatized? community topic words Click on a community circle to learn more about it!</description>
+    </item>
+    
+  </channel>
+</rss>
