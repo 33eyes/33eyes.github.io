@@ -40,5 +40,15 @@
   Topic terms selected:  | communities found:   Reload  Wikipedia clickstream communities network for December 2018  Circles: Wikipedia article communities  Size: community size Shade: relative community density   : more interconnected community  : less interconnected community   Hover text: Lemmatized? community topic words Click on a community circle to learn more about it!</description>
     </item>
     
+    <item>
+      <title></title>
+      <link>http://33eyes.github.io/visualizations/gallery/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://33eyes.github.io/visualizations/gallery/</guid>
+      <description>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag(&#39;js&#39;, new Date()); gtag(&#39;config&#39;, &#39;UA-92642280-2&#39;);   Visualizations &amp;middot; Arina Igumenshcheva     Arina Igumenshcheva   blog projects visualizations about     Visualizations Click on things to see more things to click on.
+Wikipedia traffic breakdown    An interactive donut chart of Wikipedia traffic breakdown by type. Made for a blog post about Wikipedia browsing history.</description>
+    </item>
+    
   </channel>
 </rss>
